@@ -25,9 +25,9 @@ try:
     execute([
         'scrapy',
         'crawl',
-        spider
-        # '-o',
-        # f'{spider}.csv'
+        spider,
+        '-o',
+        f'{spider}.csv'
         # '-s',
         # f'LOG_FILE={log_file}'
     ])
