@@ -7,7 +7,7 @@ class AllocineSpider(scrapy.Spider):
     allowed_domains = ["www.allocine.fr"]
     start_urls = ["https://www.allocine.fr/films/presse/decennie-2020/annee-2024/"]
     current_url = ""
-    
+    base_url = "https://www.allocine.fr"
     
     def parse(self, response):
         self.current_url = self.start_urls[0]
@@ -29,6 +29,9 @@ class AllocineSpider(scrapy.Spider):
         
     
     def parse_film(self, film):
+        
+        box_office_url = self.get_box_office_url(film.url)
+        
         f = FilmItem()
         scores = self.get_scores(film)
         f["title"] = film.css("div.titlebar-title.titlebar-title-xl::text").get()
@@ -36,6 +39,12 @@ class AllocineSpider(scrapy.Spider):
         for genre in film.css("div.meta-body-item.meta-body-info span.dark-grey-link"):
             f["genre"] += genre.css("::text").get() + '|'
         f['genre'] = f['genre'][:-1]
+        
+        f['actors'] = ""
+        for actor in film.css("div.meta-body-item.meta-body-actor span.dark-grey-link"):
+            f['actors'] += actor.css("::text").get() + '|'
+        f['actors'] = f['actors'][:-1]
+        
         f["date"] = film.css("div.meta-body-item.meta-body-info span.date::text").get().strip()
         f["length"] = film.xpath('.//div[@class="meta-body-item meta-body-info"]/text()[normalize-space()]').get().strip()
         f["url"] = film.css("a.meta-title-link::attr(href)").get()
@@ -47,8 +56,8 @@ class AllocineSpider(scrapy.Spider):
         tech_chart = film.css("section.section.ovw.ovw-technical div.item")
         for item in tech_chart:
             match item.css("span.what.light::text").get():
-                case "Nationalités":
-                    f['nationality'] = "".join(item.css("span.that::text").getall()).strip()
+                case "Nationalités" | "Nationalité":
+                    f['nationality'] = "".join(item.css("span.that span::text").getall()).strip()                   
                 case "Distributeur":
                     f['editor'] = "".join(item.css("span.that::text").getall()).strip()
                 case "Box Office France":
@@ -60,18 +69,20 @@ class AllocineSpider(scrapy.Spider):
                 case _:
                     pass
                 
-        return f
+        yield film.follow(box_office_url, callback=self.parse_box_office, meta={"item": f})
 
+    def parse_box_office(self, response):
+        f = response.meta["item"]
+        f['french_first_week_boxoffice'] = response.css("td.responsive-table-column.second-col.col-bg::text").get().strip()
+        return f
+    
     def get_scores(self, response):
         scores = response.css("span.stareval-note::text").getall()
         
         return [scores[0], scores[1]]
   
-    #  actors = scrapy.Field()
-    # nationality = scrapy.Field()
-    # editor = scrapy.Field()
-    # french_boxoffice = scrapy.Field()
-    # french_first_week_boxoffice = scrapy.Field()
-    # langage = scrapy.Field()
-    # french_visa = scrapy.Field()
+    def get_box_office_url(self, url):
         
+        return url.replace("_gen_cfilm=", "-").replace(".html", "/box-office/")
+
+      
