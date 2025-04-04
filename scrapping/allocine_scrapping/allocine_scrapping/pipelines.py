@@ -6,14 +6,21 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-
+from datetime import datetime
 
 class AllocineScrappingPipeline:
+
+    mois_fr_to_en = {
+    'janvier': 'January', 'février': 'February', 'mars': 'March', 
+    'avril': 'April', 'mai': 'May', 'juin': 'June', 
+    'juillet': 'July', 'août': 'August', 'septembre': 'September', 
+    'octobre': 'October', 'novembre': 'November', 'décembre': 'December'
+    }
 
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
 
-        print("DEBUG =================================== ", item)
+        # print("DEBUG =================================== ", item)
         
         # ## Strip all whitespaces from strings
         # field_names = adapter.field_names()
@@ -32,6 +39,12 @@ class AllocineScrappingPipeline:
         
         adapter['length'] = self.hours_to_minutes(adapter['length'])
 
+        adapter['date'] = self.convert_fr_date(adapter['date'])
+        
+        adapter["langage"] = adapter["langage"].replace(", ", "|")
+        
+        adapter["nationality"] = adapter["nationality"].replace(" ", "|")
+        
         # ## Category & Product Type --> switch to lowercase
         # lowercase_keys = ['category', 'product_type']
         # for lowercase_key in lowercase_keys:
@@ -85,3 +98,10 @@ class AllocineScrappingPipeline:
         minutes = split[1].split("min")[0]
         
         return int(hours) + int(minutes)
+
+    def convert_fr_date(self, date_str):
+
+        for fr, en in self.mois_fr_to_en.items():
+            date_str = date_str.replace(fr, en)
+        
+        return datetime.strptime(date_str, '%d %B %Y').date()
