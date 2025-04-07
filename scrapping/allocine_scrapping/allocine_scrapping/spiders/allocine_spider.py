@@ -5,7 +5,11 @@ class AllocineSpider(scrapy.Spider):
     
     name = "allocine_spider"
     allowed_domains = ["www.allocine.fr"]
-    start_urls = ["https://www.allocine.fr/films/presse/decennie-2020/annee-2024/"]
+    start_urls = ["https://www.allocine.fr/films/presse/decennie-2020/annee-2021/",
+                  "https://www.allocine.fr/films/presse/decennie-2020/annee-2022/", 
+                  "https://www.allocine.fr/films/presse/decennie-2020/annee-2023/", 
+                  "https://www.allocine.fr/films/presse/decennie-2020/annee-2024/",
+                  "https://www.allocine.fr/films/presse/decennie-2020/annee-2025/"]
     current_url = ""
     base_url = "https://www.allocine.fr"
     
@@ -16,9 +20,9 @@ class AllocineSpider(scrapy.Spider):
         max_pg = response.css("div.pagination-item-holder span:last-child::text").get()
         max_pg = int(max_pg)
         
-        # for x in range(1, max_pg+1):
-        for x in range(1, 2):
-            yield response.follow(self.current_url+page_string+str(x), callback=self.parse_film_page)
+        # for x in range(1, 2):
+        for x in range(1, max_pg+1):
+            yield response.follow(response.url+page_string+str(x), callback=self.parse_film_page)
             
   
     def parse_film_page(self, response):
