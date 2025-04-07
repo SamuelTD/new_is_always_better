@@ -1,1 +1,1358 @@
-# <div class="sc-f09bd1f5-1 hoKmdt pagination-container"><span class="ipc-see-more sc-40c28074-0 bKirtD single-page-see-more-button"><button class="ipc-btn ipc-btn--single-padding ipc-btn--center-align-content ipc-btn--default-height ipc-btn--core-base ipc-btn--theme-base ipc-btn--button-radius ipc-btn--on-accent2 ipc-text-button ipc-see-more__button" tabindex="0" aria-disabled="false"><span class="ipc-btn__text"><span class="ipc-see-more__text">50 more</span></span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="ipc-icon ipc-icon--expand-more ipc-btn__icon ipc-btn__icon--post" viewbox="0 0 24 24" fill="currentColor" role="presentation"><path opacity=".87" fill="none" d="M24 24H0V0h24v24z"></path><path d="M15.88 9.29L12 13.17 8.12 9.29a.996.996 0 1 0-1.41 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59a.996.996 0 0 0 0-1.41c-.39-.38-1.03-.39-1.42 0z"></path></svg></button></span></div>
+bouton changement de page : 
+
+
+		<ul class="lfr-pagination-buttons">
+		
+		<!--  Affichage du bouton retour premiere page double chevron (<<) -->
+			<li class="disabled">
+				<a class="navigation prev" href="javascript:;">
+					<i style="transform: rotate(180deg);" class="icon icon-double-chevron-right"></i>
+				</a>
+			</li>
+		
+			<!-- Affichage du bouton precedent "(<)" -->
+			<li class="disabled">
+				<a class="navigation prev" href="javascript:;" onclick="" tabindex="-1" target="_self">
+					<i style="transform: rotate(180deg);" class="icon icon-chevron-right"></i>
+				</a>
+			</li>
+			
+			<!-- Affichage du  penultieme quand derniere page-->
+			<li style="display:none ">
+				<a class="navigation numero" href="javascript:;">
+					-1
+				</a>
+			</li>
+
+			<!-- Affichage des numeros de pages intermÃ©diaires -->
+			
+
+				<li class="disabled current">
+					<a class="navigation numero" href="javascript:;" onclick="" tabindex="-1" target="_self">
+						1
+					</a>
+				</li>
+			
+
+				<li class="">
+					<a class="navigation numero" href="https://www.cnc.fr/cinema/etudes-et-rapports/statistiques/frequentation-cinematographique?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI_delta=21&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI_cur=2" onclick="" tabindex="0" target="_self">
+						2
+					</a>
+				</li>
+			
+			
+			<!-- Affichage du  troisieme quand premiere page-->
+			<li class="">
+				<a class="navigation numero" href="https://www.cnc.fr/cinema/etudes-et-rapports/statistiques/frequentation-cinematographique?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI_delta=21&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI_cur=3">
+					3
+				</a>
+			</li>
+		
+
+			<!-- Affichage du bouton suivant "(>)" -->
+			<li class="">
+				<a class="navigation next" href="https://www.cnc.fr/cinema/etudes-et-rapports/statistiques/frequentation-cinematographique?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI_delta=21&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI_cur=2" onclick="" tabindex="0" target="_self">
+					
+						
+							<i class="icon icon-chevron-right"></i>
+						
+					
+				</a>
+			</li>
+			
+			<!-- Affichage du bouton de derniere page double chevron (>>) -->
+			<li class=" last">
+				<a class="navigation next" href="https://www.cnc.fr/cinema/etudes-et-rapports/statistiques/frequentation-cinematographique?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI_delta=21&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_yOlvZcd2YEAI_cur=9">
+					<i class="icon icon-double-chevron-right"></i>
+				</a>
+			</li>
+			
+		</ul>
+	
+
+
+
+
+
+
+div pour rentrer dans un article : 
+
+
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2369312" data-analytics-asset-title="En mars, les salles de cinéma enregistrent plus de 12 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314">Professionnels</a>
+    </div>
+    <div class="date">
+			03 avril 2025
+    </div>
+    <h3>
+        <a href="/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314">
+	                En mars, les salles de cinéma enregistrent plus de 12 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314">
+	                    <p>Au cours du mois de mars 2025, marqué par le succès du Printemps du cinéma à 2,2 millions d’entrées (+36,9 % par rapport </p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       
+
+
+div pour la liste des articles : 
+
+	        <div class="row">
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2369312" data-analytics-asset-title="En mars, les salles de cinéma enregistrent plus de 12 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314">Professionnels</a>
+    </div>
+    <div class="date">
+			03 avril 2025
+    </div>
+    <h3>
+        <a href="/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314">
+	                En mars, les salles de cinéma enregistrent plus de 12 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314">
+	                    <p>Au cours du mois de mars 2025, marqué par le succès du Printemps du cinéma à 2,2 millions d’entrées (+36,9 % par rapport </p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2352212" data-analytics-asset-title="En février, les salles de cinéma accueillent plus de  14 millions de spectateurs" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/en-fevrier-les-salles-de-cinema-accueillent-plus-de--14-millions-de-spectateurs_2352214">
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+				
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/en-fevrier-les-salles-de-cinema-accueillent-plus-de--14-millions-de-spectateurs_2352214">Professionnels</a>
+    </div>
+    <div class="date">
+			03 mars 2025
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/en-fevrier-les-salles-de-cinema-accueillent-plus-de--14-millions-de-spectateurs_2352214">
+	                En février, les salles de cinéma accueillent plus de  14 millions de spectateurs
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/en-fevrier-les-salles-de-cinema-accueillent-plus-de--14-millions-de-spectateurs_2352214">
+	                    <p>Au cours du mois de février 2025, les salles de cinéma ont atteint 14,48 millions d’entrées en légère baisse par rapport </p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2337519" data-analytics-asset-title="Pour le premier mois de l’année, la fréquentation des cinémas français consolide le niveau atteint en 2024 avec près de 14 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/pour-le-premier-mois-de-lannee-la-frequentation-des-cinemas-francais-consolide-le-niveau-atteint-en-2024-avec-pres-de-14-millions-dentrees_2337521">
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+				
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/pour-le-premier-mois-de-lannee-la-frequentation-des-cinemas-francais-consolide-le-niveau-atteint-en-2024-avec-pres-de-14-millions-dentrees_2337521">Professionnels</a>
+    </div>
+    <div class="date">
+			04 février 2025
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/pour-le-premier-mois-de-lannee-la-frequentation-des-cinemas-francais-consolide-le-niveau-atteint-en-2024-avec-pres-de-14-millions-dentrees_2337521">
+	                Pour le premier mois de l’année, la fréquentation des cinémas français consolide le niveau atteint en 2024 avec près de 14 m...
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/pour-le-premier-mois-de-lannee-la-frequentation-des-cinemas-francais-consolide-le-niveau-atteint-en-2024-avec-pres-de-14-millions-dentrees_2337521">
+	                    <p>Au cours du mois de janvier 2025, les salles de cinéma ont atteint 13,83 millions d’entrées soit une légère hausse par ra</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2318145" data-analytics-asset-title="Avec plus de 181 millions d’entrées en 2024, les salles françaises confirment la situation exceptionnelle de la France dans le paysage du cinéma mondial" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/communiques-de-presse/avec-plus-de-181-millions-dentrees-en-2024-les-salles-francaises-confirment-la-situation-exceptionnelle-de-la-france-dans-le-paysage-du-cinema-mondial_2318147">
+            <img data-fileentryid="2318411" alt="Salle de cinéma - vgn" src="/documents/36995/2098188/Salle+de+cin%C3%A9ma+-+vgn.jpg/a557d994-7372-8633-197f-a98611e924db?t=1735638584604&amp;thumb=cncThumb">
+				
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/communiques-de-presse/avec-plus-de-181-millions-dentrees-en-2024-les-salles-francaises-confirment-la-situation-exceptionnelle-de-la-france-dans-le-paysage-du-cinema-mondial_2318147">Professionnels</a>
+    </div>
+    <div class="date">
+			31 décembre 2024
+    </div>
+    <h3>
+        <a href="/professionnels/communiques-de-presse/avec-plus-de-181-millions-dentrees-en-2024-les-salles-francaises-confirment-la-situation-exceptionnelle-de-la-france-dans-le-paysage-du-cinema-mondial_2318147">
+	                Avec plus de 181 millions d’entrées en 2024, les salles françaises confirment la situation exceptionnelle de la France dans ...
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/communiques-de-presse/avec-plus-de-181-millions-dentrees-en-2024-les-salles-francaises-confirment-la-situation-exceptionnelle-de-la-france-dans-le-paysage-du-cinema-mondial_2318147">
+	                    <ul>
+	<li>En 2024, la France affiche <strong>181,3 millions d’entrées</strong> en salles de cinéma, en progression de près d’un million par rappor</li></ul>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2304697" data-analytics-asset-title="La fréquentation des salles de cinéma en forte hausse au mois de novembre" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/la-frequentation-des-salles-de-cinema-en-forte-hausse-au-mois-de-novembre_2304699">
+            <img data-fileentryid="1600559" alt="frequentation-2021" src="/documents/36995/1384936/frequentation-2021.jpg/7f7da819-74f4-e13d-21c9-adff19c33ee0?t=1640861431633&amp;thumb=cncThumb">
+				
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/la-frequentation-des-salles-de-cinema-en-forte-hausse-au-mois-de-novembre_2304699">Professionnels</a>
+    </div>
+    <div class="date">
+			03 décembre 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/la-frequentation-des-salles-de-cinema-en-forte-hausse-au-mois-de-novembre_2304699">
+	                La fréquentation des salles de cinéma en forte hausse au mois de novembre
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/la-frequentation-des-salles-de-cinema-en-forte-hausse-au-mois-de-novembre_2304699">
+	                    <p>Le mois de novembre 2024 connaît une hausse de 16,6% par rapport à novembre 2023, pour atteindre 17,69 millions d’entrées</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2288192" data-analytics-asset-title="Au mois d’octobre, la fréquentation des salles de cinéma consolide sa remontée, avec plus de 15 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/au-mois-doctobre-la-frequentation-des-salles-de-cinema-consolide-sa-remontee-avec-plus-de-15-millions-dentrees_2288194">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/au-mois-doctobre-la-frequentation-des-salles-de-cinema-consolide-sa-remontee-avec-plus-de-15-millions-dentrees_2288194">Professionnels</a>
+    </div>
+    <div class="date">
+			04 novembre 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/au-mois-doctobre-la-frequentation-des-salles-de-cinema-consolide-sa-remontee-avec-plus-de-15-millions-dentrees_2288194">
+	                Au mois d’octobre, la fréquentation des salles de cinéma consolide sa remontée, avec plus de 15 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/au-mois-doctobre-la-frequentation-des-salles-de-cinema-consolide-sa-remontee-avec-plus-de-15-millions-dentrees_2288194">
+	                    <p>Le mois d’octobre 2024 est <b>le meilleur depuis la fin de la crise sanitaire</b> avec 15,53 millions d’entrées, selon les estim</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2267865" data-analytics-asset-title="La fréquentation des salles de cinéma confirme sa dynamique avec près de 10 millions d’entrées en septembre" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/la-frequentation-des-salles-de-cinema-confirme-sa-dynamique-avec-pres-de-10-millions-dentrees-en-septembre_2267867">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/la-frequentation-des-salles-de-cinema-confirme-sa-dynamique-avec-pres-de-10-millions-dentrees-en-septembre_2267867">Professionnels</a>
+    </div>
+    <div class="date">
+			03 octobre 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/la-frequentation-des-salles-de-cinema-confirme-sa-dynamique-avec-pres-de-10-millions-dentrees-en-septembre_2267867">
+	                La fréquentation des salles de cinéma confirme sa dynamique avec près de 10 millions d’entrées en septembre
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/la-frequentation-des-salles-de-cinema-confirme-sa-dynamique-avec-pres-de-10-millions-dentrees-en-septembre_2267867">
+	                    <p>La fréquentation des salles de cinéma au mois de <strong>septembre 2024 a enregistré une hausse de 10,1% par rapport à septembre </strong></p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2249775" data-analytics-asset-title="Fréquentation du mois d’août 2024 : 46,19 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-daout-2024--4619-millions-dentrees_2249777">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-daout-2024--4619-millions-dentrees_2249777">Professionnels</a>
+    </div>
+    <div class="date">
+			02 septembre 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-daout-2024--4619-millions-dentrees_2249777">
+	                Fréquentation du mois d’août 2024 : 46,19 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-daout-2024--4619-millions-dentrees_2249777">
+	                    <p><strong>La fréquentation du mois d’août consolide le très bel été 2024 des cinémas français, avec un total de 46,19 millions d’en</strong></p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2235059" data-analytics-asset-title="Fréquentation du mois de juillet 2024 : 18,71 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-de-juillet-2024--1871-millions-dentrees_2235061">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-de-juillet-2024--1871-millions-dentrees_2235061">Professionnels</a>
+    </div>
+    <div class="date">
+			02 août 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-de-juillet-2024--1871-millions-dentrees_2235061">
+	                Fréquentation du mois de juillet 2024 : 18,71 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-de-juillet-2024--1871-millions-dentrees_2235061">
+	                    <p style="text-align:justify">Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2218486" data-analytics-asset-title="Fréquentation du mois de juin 2024 : 13,18 millions d’entrées, le redressement amorcé au mois de mai s’accentue" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/communiques-de-presse/frequentation-du-mois-de-juin-2024--1318-millions-dentrees_2218488">
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+				
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/communiques-de-presse/frequentation-du-mois-de-juin-2024--1318-millions-dentrees_2218488">Professionnels</a>
+    </div>
+    <div class="date">
+			02 juillet 2024
+    </div>
+    <h3>
+        <a href="/professionnels/communiques-de-presse/frequentation-du-mois-de-juin-2024--1318-millions-dentrees_2218488">
+	                Fréquentation du mois de juin 2024 : 13,18 millions d’entrées, le redressement amorcé au mois de mai s’accentue
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/communiques-de-presse/frequentation-du-mois-de-juin-2024--1318-millions-dentrees_2218488">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2200478" data-analytics-asset-title="Fréquentation du mois de mai 2024 : 15,61 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-de-mai-2024-1561-millions-dentrees_2200480">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-de-mai-2024-1561-millions-dentrees_2200480">Professionnels</a>
+    </div>
+    <div class="date">
+			03 juin 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-de-mai-2024-1561-millions-dentrees_2200480">
+	                Fréquentation du mois de mai 2024 : 15,61 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-de-mai-2024-1561-millions-dentrees_2200480">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2181994" data-analytics-asset-title="Fréquentation du mois d’avril 2024 : 12 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-davril-2024--12-millions-dentrees_2181996">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-davril-2024--12-millions-dentrees_2181996">Professionnels</a>
+    </div>
+    <div class="date">
+			03 mai 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-davril-2024--12-millions-dentrees_2181996">
+	                Fréquentation du mois d’avril 2024 : 12 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-davril-2024--12-millions-dentrees_2181996">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2165790" data-analytics-asset-title="Fréquentation du mois de mars 2024 : 15 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-de-mars-2024--15-millions-dentrees_2165792">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-de-mars-2024--15-millions-dentrees_2165792">Professionnels</a>
+    </div>
+    <div class="date">
+			02 avril 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-de-mars-2024--15-millions-dentrees_2165792">
+	                Fréquentation du mois de mars 2024 : 15 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-de-mars-2024--15-millions-dentrees_2165792">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2141504" data-analytics-asset-title="Fréquentation du mois de février 2024 : 15,07 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-de-fevrier-2024--1507-millions-dentrees_2141506">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-de-fevrier-2024--1507-millions-dentrees_2141506">Professionnels</a>
+    </div>
+    <div class="date">
+			04 mars 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-de-fevrier-2024--1507-millions-dentrees_2141506">
+	                Fréquentation du mois de février 2024 : 15,07 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-de-fevrier-2024--1507-millions-dentrees_2141506">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2116618" data-analytics-asset-title="Fréquentation du mois de janvier 2024 : 13,5 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-de-janvier-2024--135-millions-dentrees_2116620">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-de-janvier-2024--135-millions-dentrees_2116620">Professionnels</a>
+    </div>
+    <div class="date">
+			02 février 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-de-janvier-2024--135-millions-dentrees_2116620">
+	                Fréquentation du mois de janvier 2024 : 13,5 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-de-janvier-2024--135-millions-dentrees_2116620">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2096481" data-analytics-asset-title="A 181 millions d’entrées, la fréquentation des salles en 2023 confirme sa forte dynamique" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/a-181-millions-dentrees-la-frequentation-des-salles-en-2023-confirme-sa-forte-dynamique_2096483">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/a-181-millions-dentrees-la-frequentation-des-salles-en-2023-confirme-sa-forte-dynamique_2096483">Professionnels</a>
+    </div>
+    <div class="date">
+			02 janvier 2024
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/a-181-millions-dentrees-la-frequentation-des-salles-en-2023-confirme-sa-forte-dynamique_2096483">
+	                A 181 millions d’entrées, la fréquentation des salles en 2023 confirme sa forte dynamique
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/a-181-millions-dentrees-la-frequentation-des-salles-en-2023-confirme-sa-forte-dynamique_2096483">
+	                    <p>La France affiche, dès 2023, des résultats proches des niveaux d’avant crise : la fréquentation des salles atteint 181 mi</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2075845" data-analytics-asset-title="Fréquentation du mois de novembre 2023 : 15,11 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-de-novembre-2023--1511-millions-dentrees_2075847">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-de-novembre-2023--1511-millions-dentrees_2075847">Professionnels</a>
+    </div>
+    <div class="date">
+			01 décembre 2023
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-de-novembre-2023--1511-millions-dentrees_2075847">
+	                Fréquentation du mois de novembre 2023 : 15,11 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-de-novembre-2023--1511-millions-dentrees_2075847">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2058128" data-analytics-asset-title="Fréquentation du mois d'octobre 2023 : 13,86 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-doctobre-2023--1386-millions-dentrees_2058130">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-doctobre-2023--1386-millions-dentrees_2058130">Professionnels</a>
+    </div>
+    <div class="date">
+			02 novembre 2023
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-doctobre-2023--1386-millions-dentrees_2058130">
+	                Fréquentation du mois d'octobre 2023 : 13,86 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-doctobre-2023--1386-millions-dentrees_2058130">
+	                    <p>Selon les estimations de la direction des études, des statistiques et de la prospective, la fréquentation cinématographiq</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2040472" data-analytics-asset-title="Fréquentation du mois de septembre 2023 : 8,78 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-de-septembre-2023--878-millions-dentrees_2040474">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-de-septembre-2023--878-millions-dentrees_2040474">Professionnels</a>
+    </div>
+    <div class="date">
+			03 octobre 2023
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-de-septembre-2023--878-millions-dentrees_2040474">
+	                Fréquentation du mois de septembre 2023 : 8,78 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-de-septembre-2023--878-millions-dentrees_2040474">
+	                    <p>Selon les estimations du Centre&nbsp;national du cinéma et de l’image animée (CNC), la fréquentation cinématographique at</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2023798" data-analytics-asset-title="Fréquentation du mois d’août 2023 : 15,91 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-daout-2023--1591-millions-dentrees_2023800">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-daout-2023--1591-millions-dentrees_2023800">Professionnels</a>
+    </div>
+    <div class="date">
+			04 septembre 2023
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-daout-2023--1591-millions-dentrees_2023800">
+	                Fréquentation du mois d’août 2023 : 15,91 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-daout-2023--1591-millions-dentrees_2023800">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+				           <div class="col-12 col-lg-4">
+		            		   <article>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix journal-content-article" data-analytics-asset-id="2006667" data-analytics-asset-title="Fréquentation du mois de juillet 2023 : 18,38 millions d’entrées" data-analytics-asset-type="web-content">
+	
+
+	
+
+<div class="picture">
+    <a href="/professionnels/actualites/frequentation-du-mois-de-juillet-2023--1838-millions-dentrees_2006669">
+
+
+            <img data-fileentryid="860668" alt="Salle de cinéma" src="/documents/36995/98172/Salle+de+cin%C3%A9ma.jpg/6bd658ca-3454-9127-c79a-da1178fc34ad?t=1640685361157&amp;thumb=cncThumb">
+    </a>
+</div>
+<div class="infos">
+    <div class="category">
+
+			<a href="/professionnels/actualites/frequentation-du-mois-de-juillet-2023--1838-millions-dentrees_2006669">Professionnels</a>
+    </div>
+    <div class="date">
+			02 août 2023
+    </div>
+    <h3>
+        <a href="/professionnels/actualites/frequentation-du-mois-de-juillet-2023--1838-millions-dentrees_2006669">
+	                Fréquentation du mois de juillet 2023 : 18,38 millions d’entrées
+        </a>
+    </h3>
+    <div class="excerpt">
+        <a href="/professionnels/actualites/frequentation-du-mois-de-juillet-2023--1838-millions-dentrees_2006669">
+	                    <p>Selon les estimations du Centre national du cinéma et de l’image animée (CNC), la fréquentation cinématographique atteint</p>...
+        </a>
+    </div>
+</div>
+</div>								</article>
+	                       </div>
+	        </div>
+	    
+
+
+url d'un article https://www.cnc.fr/professionnels/communiques-de-presse/en-mars-les-salles-de-cinema-enregistrent-plus-de-12-millions-dentrees_2369314
+
+2tableaux a recuperer dans l'article:
+tableau 1: 
+
+	<thead>
+		<tr>
+			<td nowrap="nowrap" width="45%"><strong>Parts de marché* (%)</strong></td>
+			<td colspan="2" nowrap="nowrap" width="16%"><strong>Films français</strong></td>
+			<td colspan="2" nowrap="nowrap" width="20%"><strong>Films américains</strong></td>
+			<td colspan="2" nowrap="nowrap" width="17%"><strong>Autres films</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td nowrap="nowrap" width="45%"><strong>&nbsp;</strong></td>
+			<td width="8%"><strong>2025</strong></td>
+			<td nowrap="nowrap" width="8%"><strong>2024</strong></td>
+			<td width="10%"><strong>2025</strong></td>
+			<td nowrap="nowrap" width="9%"><strong>2024</strong></td>
+			<td width="8%"><strong>2025</strong></td>
+			<td nowrap="nowrap" width="9%"><strong>2024</strong></td>
+		</tr>
+		<tr>
+			<td nowrap="nowrap" width="45%">trois premiers mois</td>
+			<td width="8%"><span style="color:#ff0000;">47,0</span></td>
+			<td nowrap="nowrap" width="8%">48,1</td>
+			<td width="10%"><span style="color:#ff0000;">30,2</span></td>
+			<td nowrap="nowrap" width="9%">22,8</td>
+			<td width="8%"><span style="color:#ff0000;">22,9</span></td>
+			<td nowrap="nowrap" width="9%">29,1</td>
+		</tr>
+		<tr>
+			<td nowrap="nowrap" width="45%">année glissante (d’avril n-1 à mars n)</td>
+			<td nowrap="nowrap" width="8%"><span style="color:#ff0000;">44,4</span></td>
+			<td nowrap="nowrap" width="8%">39,3</td>
+			<td nowrap="nowrap" width="10%"><span style="color:#ff0000;">37,5</span></td>
+			<td nowrap="nowrap" width="9%">37,8</td>
+			<td nowrap="nowrap" width="8%"><span style="color:#ff0000;">18,1</span></td>
+			<td nowrap="nowrap" width="9%">22,9</td>
+		</tr>
+	</tbody>
+
+
+tableau 2 :
+
+	<thead>
+		<tr>
+			<td width="234"><strong>Fréquentation totale </strong>(millions d’entrées)</td>
+			<td width="64"><strong>2025</strong></td>
+			<td width="66"><strong>2024</strong></td>
+			<td width="94"><strong>évolution 25/24 (%)</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td nowrap="nowrap" width="279">janvier</td>
+			<td nowrap="nowrap" width="85"><span style="color:#ff0000;">13,81</span></td>
+			<td nowrap="nowrap" width="78">13,71</td>
+			<td nowrap="nowrap" width="92"><span style="color:#ff0000;">+0,8</span></td>
+		</tr>
+		<tr>
+			<td nowrap="nowrap" width="279">février</td>
+			<td nowrap="nowrap" width="85"><span style="color:#ff0000;">14,51</span></td>
+			<td nowrap="nowrap" width="78">15,06</td>
+			<td nowrap="nowrap" width="92"><span style="color:#ff0000;">-3,7</span></td>
+		</tr>
+		<tr>
+			<td nowrap="nowrap" width="279">mars</td>
+			<td nowrap="nowrap" width="85"><span style="color:#ff0000;">12,53</span></td>
+			<td nowrap="nowrap" width="78">15,19</td>
+			<td nowrap="nowrap" width="92"><span style="color:#ff0000;">-17,5</span></td>
+		</tr>
+		<tr>
+			<td nowrap="nowrap" width="279"><strong>trois premiers mois</strong></td>
+			<td nowrap="nowrap" width="85"><span style="color:#ff0000;"><strong>40,85</strong></span></td>
+			<td nowrap="nowrap" width="78"><strong>43,96</strong></td>
+			<td nowrap="nowrap" width="92"><span style="color:#ff0000;"><strong>-7,1</strong></span></td>
+		</tr>
+		<tr>
+			<td nowrap="nowrap" width="279">année glissante (d’avril n-1 à mars n)</td>
+			<td nowrap="nowrap" width="85"><span style="color:#ff0000;">178,41</span></td>
+			<td nowrap="nowrap" width="78">175,79</td>
+			<td nowrap="nowrap" width="92"><span style="color:#ff0000;">+1,5</span></td>
+		</tr>
+	</tbody>
