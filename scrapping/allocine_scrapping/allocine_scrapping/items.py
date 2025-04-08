@@ -7,7 +7,7 @@ import scrapy
 
 
 class FilmItem(scrapy.Item):
-    # define the fields for your item here like:
+
     title = scrapy.Field()
     vo_title = scrapy.Field()
     date = scrapy.Field()
@@ -16,7 +16,6 @@ class FilmItem(scrapy.Item):
     url = scrapy.Field()
     critics_score = scrapy.Field()
     viewers_score = scrapy.Field()
-    # synopsis = scrapy.Field()
     director = scrapy.Field()
     actors = scrapy.Field()
     nationality = scrapy.Field()
@@ -25,4 +24,4 @@ class FilmItem(scrapy.Item):
     french_first_week_boxoffice = scrapy.Field()
     langage = scrapy.Field()
     french_visa = scrapy.Field()
-    pass
+

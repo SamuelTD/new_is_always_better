@@ -7,6 +7,7 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 from datetime import datetime
+import pandas as pd
 
 class AllocineScrappingPipeline:
 
@@ -20,78 +21,46 @@ class AllocineScrappingPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
 
-        # print("DEBUG =================================== ", item)
-        
-        # ## Strip all whitespaces from strings
-        # field_names = adapter.field_names()
-        # for field_name in field_names:
-        #     if field_name != 'description':
-        #         value = adapter.get(field_name)
-        #         adapter[field_name] = value.strip()
-
+        #Change comas to points in numeric fields
         coma_to_points = ['critics_score', 'viewers_score']
         for coma in coma_to_points:
             adapter[coma] = adapter[coma].replace(",", ".")
 
-        adapter['french_boxoffice'] = adapter["french_boxoffice"].replace(" entrées", "").replace(" ", "")
-        
+        #Remove uncessary text and white spaces
+        adapter['french_boxoffice'] = adapter['french_boxoffice'].replace(" entrées", "").replace(" ", "")
+                
+        #Remove white spaces
         adapter['french_first_week_boxoffice'] = adapter['french_first_week_boxoffice'].replace(" ", "")
         
-        adapter['length'] = self.hours_to_minutes(adapter['length'])
-
-        adapter['date'] = self.convert_fr_date(adapter['date'])
+        #Convert the length of the movie to minutes if availlable.
+        if adapter['length'] != "0" and adapter['length'] != "Date de sortie inconnue":
+            adapter['length'] = self.hours_to_minutes(adapter['length'])
         
+        #If the release date is known, convert it to a date format.
+        if adapter["date"] != "TBR":
+            adapter['date'] = self.convert_fr_date(adapter['date'])
+        
+        #Transorm comas into pipes |
         adapter["langage"] = adapter["langage"].replace(", ", "|")
         
         adapter["nationality"] = adapter["nationality"].replace(" ", "|")
-        
-        # ## Category & Product Type --> switch to lowercase
-        # lowercase_keys = ['category', 'product_type']
-        # for lowercase_key in lowercase_keys:
-        #     value = adapter.get(lowercase_key)
-        #     adapter[lowercase_key] = value.lower()
-
-        # ## Price --> convert to float
-        # price_keys = ['price', 'price_excl_tax', 'price_incl_tax', 'tax']
-        # for price_key in price_keys:
-        #     value = adapter.get(price_key)
-        #     value = value.replace('£', '')
-        #     adapter[price_key] = float(value)
-
-        # ## Availability --> extract number of books in stock
-        # availability_string = adapter.get('availability')
-        # split_string_array = availability_string.split('(')
-        # if len(split_string_array) < 2:
-        #     adapter['availability'] = 0
-        # else:
-        #     availability_array = split_string_array[1].split(' ')
-        #     adapter['availability'] = int(availability_array[0])
-
-        # ## Reviews --> convert string to number
-        # num_reviews_string = adapter.get('num_reviews')
-        # adapter['num_reviews'] = int(num_reviews_string)
-        
-        # ## Stars --> convert text to number
-        # stars_string = adapter.get('stars')
-        # split_stars_array = stars_string.split(' ')
-        # stars_text_value = split_stars_array[1].lower()
-        # if stars_text_value == "zero":
-        #     adapter['stars'] = 0
-        # elif stars_text_value == "one":
-        #     adapter['stars'] = 1
-        # elif stars_text_value == "two":
-        #     adapter['stars'] = 2
-        # elif stars_text_value == "three":
-        #     adapter['stars'] = 3
-        # elif stars_text_value == "four":
-        #     adapter['stars'] = 4
-        # elif stars_text_value == "five":
-        #     adapter['stars'] = 5
 
         return item
 
-
-    def hours_to_minutes(self, h):
+    def close_spider(self, spider):
+        """
+        On the spider closing, create a parquet file from the created .csv
+        """
+        
+        df = pd.read_csv("./allocine_spider.csv")
+        df.to_parquet("allocine_spider.parquet", index=False)
+    
+    
+    def hours_to_minutes(self, h)  -> int:
+        """
+        Transform string formatted movie length into minutes.
+        """
+        
         split = h.split()
         hours = split[0].split("h")[0]
         hours = int(hours)*60
@@ -99,8 +68,12 @@ class AllocineScrappingPipeline:
         
         return int(hours) + int(minutes)
 
-    def convert_fr_date(self, date_str):
+    def convert_fr_date(self, date_str) -> datetime:
 
+        """
+        Convert a string formatted date into a datetime object.
+        """
+        
         for fr, en in self.mois_fr_to_en.items():
             date_str = date_str.replace(fr, en)
         
