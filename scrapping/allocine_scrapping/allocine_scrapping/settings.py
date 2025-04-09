@@ -36,6 +36,8 @@ DOWNLOAD_DELAY = 0
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
+CLOSESPIDER_ERRORCOUNT = 1
+
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",

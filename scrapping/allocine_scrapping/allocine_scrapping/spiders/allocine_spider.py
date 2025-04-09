@@ -11,8 +11,8 @@ class AllocineSpider(scrapy.Spider):
     allowed_domains = ["www.allocine.fr"]
     
     #Scraps from 2010 to 2025
-    start_urls = ["https://www.allocine.fr/films/decennie-2010/",
-                   "https://www.allocine.fr/films/decennie-2020/"]
+    start_urls = ["https://www.allocine.fr/films/decennie-2000/",
+                   "https://www.allocine.fr/films/decennie-1990/"]
     
     base_url = "https://www.allocine.fr"
     
