@@ -1,0 +1,530 @@
+date,genre,title
+09/04/2025,Aventure,
+09/04/2025,Comédie dramatique,
+09/04/2025,Drame,
+09/04/2025,"Action, Animation, Science fiction",
+09/04/2025,Drame,
+09/04/2025,"Action, Thriller",
+09/04/2025,Biopic,
+09/04/2025,Comédie,
+09/04/2025,Comédie dramatique,
+09/04/2025,"Drame, Histoire",
+09/04/2025,"Comédie, Romance",
+09/04/2025,Documentaire,
+09/04/2025,Animation,
+09/04/2025,"Horreur, Thriller",
+16/04/2025,"Biopic, Drame",
+16/04/2025,Comédie dramatique,
+16/04/2025,"Drame, Western",
+16/04/2025,Comédie,
+16/04/2025,"Drame, Horreur, Thriller",
+16/04/2025,Non classé,
+16/04/2025,Action,
+16/04/2025,"Biopic, Drame, Histoire",
+16/04/2025,Comédie,
+16/04/2025,Drame,
+16/04/2025,Drame,
+16/04/2025,Drame,
+16/04/2025,"Drame, Polar",
+16/04/2025,"Comédie, Documentaire",
+17/04/2025,"Action, Animation, Aventure",
+23/04/2025,"Drame, Histoire",
+23/04/2025,Comédie,
+23/04/2025,Comédie dramatique,
+23/04/2025,Non classé,
+23/04/2025,Thriller,
+23/04/2025,Thriller,
+23/04/2025,"Aventure, Fantastique",
+23/04/2025,Documentaire,
+23/04/2025,Documentaire,
+23/04/2025,Romance,
+23/04/2025,Horreur,
+23/04/2025,Thriller,
+23/04/2025,Thriller,
+30/04/2025,Comédie,
+30/04/2025,"Comédie, Drame",
+30/04/2025,"Fantastique, Polar",
+30/04/2025,Comédie,
+30/04/2025,Action,
+30/04/2025,Comédie,
+30/04/2025,Drame,
+30/04/2025,Comédie dramatique,
+30/04/2025,"Drame, Romance",
+30/04/2025,Documentaire,
+30/04/2025,Comédie dramatique,
+30/04/2025,Drame,
+30/04/2025,Documentaire,
+30/04/2025,Documentaire,
+07/05/2025,Drame,
+07/05/2025,Drame,
+07/05/2025,Drame,
+07/05/2025,Comédie,
+07/05/2025,Comédie dramatique,
+07/05/2025,Comédie,
+07/05/2025,Comédie dramatique,
+07/05/2025,"Comédie, Romance",
+07/05/2025,Documentaire,
+07/05/2025,Comédie,
+07/05/2025,"Comédie, Romance",
+07/05/2025,"Action, Thriller",
+07/05/2025,Comédie dramatique,
+14/05/2025,Drame,
+14/05/2025,"Drame, Polar, Romance, Thriller",
+14/05/2025,Comédie dramatique,
+14/05/2025,"Comédie dramatique, Thriller",
+14/05/2025,Horreur,
+14/05/2025,"Biopic, Comédie musicale",
+14/05/2025,Drame,
+16/05/2025,Thriller,
+18/05/2025,Comédie,
+21/05/2025,Action,
+21/05/2025,Comédie dramatique,
+21/05/2025,Drame,
+21/05/2025,"Aventure, Comédie",
+21/05/2025,"Horreur, Thriller",
+28/05/2025,Non classé,
+28/05/2025,Comédie dramatique,
+28/05/2025,"Action, Thriller",
+28/05/2025,"Drame, Science fiction",
+28/05/2025,"Animation, Aventure",
+28/05/2025,Drame,
+28/05/2025,"Horreur, Thriller",
+04/06/2025,Comédie dramatique,
+04/06/2025,Comédie,
+04/06/2025,Action,
+04/06/2025,Drame,
+04/06/2025,Documentaire,
+04/06/2025,Documentaire,
+04/06/2025,Documentaire,
+04/06/2025,"Horreur, Thriller",
+11/06/2025,"Action, Aventure, Fantastique",
+11/06/2025,Drame,
+11/06/2025,Drame,
+11/06/2025,Drame,
+11/06/2025,Drame,
+11/06/2025,Comédie,
+11/06/2025,"Drame, Horreur",
+11/06/2025,Horreur,
+11/06/2025,Documentaire,
+11/06/2025,Drame,
+18/06/2025,"Animation, Aventure",
+18/06/2025,"Horreur, Thriller",
+18/06/2025,Comédie,
+18/06/2025,Comédie,
+18/06/2025,Comédie,
+18/06/2025,Comédie,
+18/06/2025,Comédie dramatique,
+18/06/2025,"Animation, Aventure, Comédie",
+18/06/2025,"Animation, Aventure",
+18/06/2025,Drame,
+18/06/2025,Comédie musicale,
+18/06/2025,Fantastique,
+25/06/2025,Animation,
+25/06/2025,"Horreur, Thriller",
+25/06/2025,Science fiction,
+25/06/2025,Action,
+25/06/2025,"Comédie, Science fiction",
+25/06/2025,Non classé,
+25/06/2025,Thriller,
+27/06/2025,Comédie dramatique,
+02/07/2025,"Action, Aventure, Science fiction",
+02/07/2025,Drame,
+02/07/2025,Animation,
+02/07/2025,Comédie dramatique,
+02/07/2025,Action,
+02/07/2025,Comédie dramatique,
+02/07/2025,Thriller,
+02/07/2025,Horreur,
+02/07/2025,Drame,
+09/07/2025,"Action, Science fiction",
+09/07/2025,Non classé,
+09/07/2025,Comédie,
+09/07/2025,Documentaire,
+09/07/2025,Drame,
+09/07/2025,Drame,
+09/07/2025,"Documentaire, Drame",
+09/07/2025,Drame,
+16/07/2025,Comédie,
+16/07/2025,Drame,
+16/07/2025,"Animation, Aventure",
+16/07/2025,"Horreur, Thriller",
+23/07/2025,Aventure,
+23/07/2025,"Horreur, Thriller",
+30/07/2025,Fantastique,
+30/07/2025,"Comédie, Drame",
+30/07/2025,"Drame, Romance",
+06/08/2025,"Horreur, Thriller",
+06/08/2025,Comédie,
+06/08/2025,"Horreur, Thriller",
+06/08/2025,Comédie,
+06/08/2025,Comédie,
+06/08/2025,Comédie,
+13/08/2025,"Action, Aventure",
+13/08/2025,Animation,
+13/08/2025,"Action, Comédie",
+13/08/2025,Comédie,
+13/08/2025,"Drame, Thriller",
+20/08/2025,Drame,
+20/08/2025,Action,
+20/08/2025,Horreur,
+20/08/2025,"Drame, Horreur",
+27/08/2025,Action,
+27/08/2025,"Polar, Thriller",
+27/08/2025,Drame,
+27/08/2025,Comédie,
+03/09/2025,Drame,
+03/09/2025,Comédie,
+03/09/2025,Documentaire,
+10/09/2025,Comédie,
+10/09/2025,Documentaire,
+10/09/2025,"Horreur, Thriller",
+17/09/2025,"Drame, Fantastique",
+17/09/2025,"Science fiction, Thriller",
+17/09/2025,Documentaire,
+17/09/2025,Drame,
+17/09/2025,"Action, Animation",
+24/09/2025,Horreur,
+24/09/2025,Drame,
+24/09/2025,Comédie dramatique,
+24/09/2025,Comédie dramatique,
+24/09/2025,Drame,
+24/09/2025,Non classé,
+01/10/2025,Horreur,
+01/10/2025,Biopic,
+01/10/2025,"Aventure, Drame",
+08/10/2025,Animation,
+08/10/2025,"Action, Animation, Science fiction",
+08/10/2025,"Animation, Aventure, Comédie",
+08/10/2025,Comédie,
+08/10/2025,"Polar, Thriller",
+15/10/2025,"Animation, Biopic",
+15/10/2025,"Horreur, Thriller",
+15/10/2025,"Action, Polar, Science fiction",
+15/10/2025,Comédie,
+15/10/2025,Comédie,
+22/10/2025,Animation,
+22/10/2025,"Aventure, Science fiction",
+22/10/2025,"Action, Aventure",
+22/10/2025,Comédie,
+22/10/2025,Aventure,
+22/10/2025,Documentaire,
+29/10/2025,Comédie dramatique,
+05/11/2025,Science fiction,
+05/11/2025,Drame,
+05/11/2025,"Comédie, Science fiction",
+05/11/2025,Science fiction,
+12/11/2025,Comédie,
+19/11/2025,"Polar, Thriller",
+19/11/2025,Animation,
+26/11/2025,"Aventure, Comédie, Fantastique",
+26/11/2025,"Animation, Aventure, Comédie",
+03/12/2025,"Horreur, Thriller",
+10/12/2025,Aventure,
+10/12/2025,Comédie,
+17/12/2025,"Action, Aventure",
+17/12/2025,Animation,
+17/12/2025,"Aventure, Comédie",
+17/12/2025,Non classé,
+24/12/2025,"Action, Aventure",
+24/12/2025,Comédie,
+07/01/2026,"Horreur, Thriller",
+28/01/2026,Thriller,
+28/01/2026,Comédie,
+28/01/2026,"Animation, Aventure",
+28/01/2026,"Animation, Aventure",
+28/01/2026,Horreur,
+04/02/2026,Comédie,
+11/02/2026,Drame,
+18/02/2026,Animation,
+25/02/2026,Horreur,
+04/03/2026,"Fantastique, Horreur",
+04/03/2026,Non classé,
+04/03/2026,Animation,
+08/04/2026,Comédie,
+20/05/2026,"Aventure, Fantastique, Science fiction",
+10/06/2026,"Comédie, Horreur",
+24/06/2026,"Action, Fantastique, Science fiction",
+08/07/2026,"Aventure, Comédie",
+22/07/2026,"Action, Aventure",
+29/07/2026,Animation,
+29/07/2026,Action,
+12/08/2026,Thriller,
+26/08/2026,"Action, Animation",
+26/08/2026,Animation,
+23/09/2026,"Fantastique, Romance",
+30/09/2026,"Action, Aventure, Drame",
+14/10/2026,Non classé,
+14/10/2026,Animation,
+09/12/2026,"Action, Aventure",
+16/12/2026,Animation,
+03/02/2027,Action,
+03/02/2027,"Animation, Aventure, Science fiction",
+24/03/2027,"Animation, Aventure",
+30/06/2027,"Animation, Aventure, Comédie",
+23/07/2027,"Animation, Aventure, Comédie",
+03/11/2027,Comédie,
+date,genre,title
+09/04/2025,Aventure,MOON LE PANDA
+09/04/2025,Comédie dramatique,MIKADO
+09/04/2025,Drame,ZION
+09/04/2025,"Action, Animation, Science fiction",DOG MAN
+09/04/2025,Drame,LE VILLAGE AUX PORTES DU PARADIS
+09/04/2025,"Action, Thriller",THE AMATEUR
+09/04/2025,Biopic,VOYAGE AVEC MON PÈRE
+09/04/2025,Comédie,DOUX JESUS
+09/04/2025,Comédie dramatique,BERGERS
+09/04/2025,"Drame, Histoire",LA JEUNE FEMME À L’AIGUILLE
+09/04/2025,"Comédie, Romance",HER STORY
+09/04/2025,Documentaire,LES GUERRES DE CHRISTINE S.
+09/04/2025,Animation,L’HISTOIRE DU SOLDAT
+09/04/2025,"Horreur, Thriller",PIÉGÉ
+16/04/2025,"Biopic, Drame",OXANA
+16/04/2025,Comédie dramatique,LA REPARATION
+16/04/2025,"Drame, Western",HARVEST
+16/04/2025,Comédie,LE MÉLANGE DES GENRES
+16/04/2025,"Drame, Horreur, Thriller",SINNERS
+16/04/2025,Non classé,KYUKA – AVANT LA FIN DE L’ÉTÉ
+16/04/2025,Action,RAPIDE
+16/04/2025,"Biopic, Drame, Histoire",MICHAEL
+16/04/2025,Comédie,AIMONS-NOUS VIVANTS
+16/04/2025,Drame,TOXIC
+16/04/2025,Drame,DIMANCHES
+16/04/2025,Drame,COMMENT DEVENIR RICHE (GRÂCE À SA GRAND-MÈRE)
+16/04/2025,"Drame, Polar",LETTRES SICILIENNES
+16/04/2025,"Comédie, Documentaire",CECI N’EST PAS UNE GUERRE
+17/04/2025,"Action, Animation, Aventure",KAIJU NO. 8 : MISSION RECON
+23/04/2025,"Drame, Histoire",LA CHAMBRE DE MARIANA
+23/04/2025,Comédie,"L’AMOUR, C'EST SURCOTÉ"
+23/04/2025,Comédie dramatique,DES JOURS MEILLEURS
+23/04/2025,Non classé,SIMÓN DE LA MONTAÑA
+23/04/2025,Thriller,THE GAZER
+23/04/2025,Thriller,DROP
+23/04/2025,"Aventure, Fantastique",LA LÉGENDE D’OCHI
+23/04/2025,Documentaire,PROMESSE
+23/04/2025,Documentaire,UN MÉDECIN POUR LA PAIX
+23/04/2025,Romance,ALTERLOVE
+23/04/2025,Horreur,UNTIL DAWN
+23/04/2025,Thriller,LE CLAN DES BÊTES
+23/04/2025,Thriller,L’ÎLE DES FAISANS
+30/04/2025,Comédie,GÉRALD LE CONQUÉRANT
+30/04/2025,"Comédie, Drame",LES RÈGLES DE L’ART
+30/04/2025,"Fantastique, Polar",LES LINCEULS
+30/04/2025,Comédie,UNE POINTE D’AMOUR
+30/04/2025,Action,THUNDERBOLTS*
+30/04/2025,Comédie,CE NOUVEL AN QUI N’EST JAMAIS ARRIVÉ
+30/04/2025,Drame,TU NE MENTIRAS POINT
+30/04/2025,Comédie dramatique,A NEW OLD PLAY
+30/04/2025,"Drame, Romance",LES FLEURS DU SILENCE
+30/04/2025,Documentaire,LES ESPRITS LIBRES
+30/04/2025,Comédie dramatique,GHOSTLIGHT
+30/04/2025,Drame,LES INDOMPTÉS
+30/04/2025,Documentaire,ASCQ 44 – LES MARTYRS DU NORD
+30/04/2025,Documentaire,LE JOLI MAI
+07/05/2025,Drame,L’EFFACEMENT
+07/05/2025,Drame,LES ENFANTS ROUGES
+07/05/2025,Drame,LES ARÈNES
+07/05/2025,Comédie,"RUMOURS, NUIT BLANCHE AU SOMMET"
+07/05/2025,Comédie dramatique,"MOI, MA MÈRE ET LES AUTRES"
+07/05/2025,Comédie,UN MONDE MERVEILLEUX
+07/05/2025,Comédie dramatique,LES MUSICIENS
+07/05/2025,"Comédie, Romance",ANGES & CIE
+07/05/2025,Documentaire,"SOUDAN, SOUVIENS-TOI"
+07/05/2025,Comédie,LES FEMMES ET LES ENFANTS D’ABORD
+07/05/2025,"Comédie, Romance",DE MAUVAISE FOI
+07/05/2025,"Action, Thriller",COKA CHICAS
+07/05/2025,Comédie dramatique,TIMPI TAMPA
+14/05/2025,Drame,LE DOMAINE
+14/05/2025,"Drame, Polar, Romance, Thriller",THE SHAMELESS
+14/05/2025,Comédie dramatique,TRANSMITZVAH
+14/05/2025,"Comédie dramatique, Thriller",ACCIDENT DOMESTIQUE
+14/05/2025,Horreur,DESTINATION FINALE BLOODLINES
+14/05/2025,"Biopic, Comédie musicale","MILLI VANILLI, DE LA GLOIRE AU CAUCHEMAR"
+14/05/2025,Drame,"MARCO, L’ÉNIGME D’UNE VIE"
+16/05/2025,Thriller,HURRY UP TOMORROW
+18/05/2025,Comédie,La Tournée du Trio
+21/05/2025,Action,MISSION : IMPOSSIBLE – The FINAL RECKONING
+21/05/2025,Comédie dramatique,OLLIE
+21/05/2025,Drame,LIBERTATE
+21/05/2025,"Aventure, Comédie",LILO & STITCH
+21/05/2025,"Horreur, Thriller",LES MAUDITES
+28/05/2025,Non classé,ELSE
+28/05/2025,Comédie dramatique,MONSIEUR CONSTANT
+28/05/2025,"Action, Thriller",L’ULTIME BRAQUAGE
+28/05/2025,"Drame, Science fiction",ANOTHER END
+28/05/2025,"Animation, Aventure",DIPLODOCUS
+28/05/2025,Drame,HOT MILK
+28/05/2025,"Horreur, Thriller",CHIME
+04/06/2025,Comédie dramatique,HORIZONTE
+04/06/2025,Comédie,LE RÉPONDEUR
+04/06/2025,Action,JOHN WICK : BALLERINA
+04/06/2025,Drame,PROFESSEUR FREUD
+04/06/2025,Documentaire,FRAGMENTS D’UN PARCOURS AMOUREUX
+04/06/2025,Documentaire,LA TERRE DES VERTUS
+04/06/2025,Documentaire,SAUVE QUI PEUT
+04/06/2025,"Horreur, Thriller",CLOUD
+11/06/2025,"Action, Aventure, Fantastique",DRAGONS
+11/06/2025,Drame,A NORMAL FAMILY
+11/06/2025,Drame,DIFFÉRENTES
+11/06/2025,Drame,REMBRANDT
+11/06/2025,Drame,SISTER MIDNIGHT 
+11/06/2025,Comédie,VACANCES FORCÉES
+11/06/2025,"Drame, Horreur",THE LIFE OF CHUCK
+11/06/2025,Horreur,THE RITUAL – L’EXORCISME D’EMMA SCHMIDT
+11/06/2025,Documentaire,D’ABDUL À LEILA
+11/06/2025,Drame,CRASSE
+18/06/2025,"Animation, Aventure",ELIO
+18/06/2025,"Horreur, Thriller",28 ANS PLUS TARD
+18/06/2025,Comédie,LA TOURNÉE
+18/06/2025,Comédie,PEACOCK
+18/06/2025,Comédie,AVIGNON
+18/06/2025,Comédie,SUR LA ROUTE DE PAPA
+18/06/2025,Comédie dramatique,KNEECAP
+18/06/2025,"Animation, Aventure, Comédie","MAYA, DONNE-MOI UN AUTRE TITRE"
+18/06/2025,"Animation, Aventure",TOM LE CHAT – À LA RECHERCHE DU DOUDOU PERDU
+18/06/2025,Drame,LOVEABLE
+18/06/2025,Comédie musicale,STOP MAKING SENSE
+18/06/2025,Fantastique,UN RÊVE PLUS LONG QUE LA NUIT
+25/06/2025,Animation,AMÉLIE ET LA MÉTAPHYSIQUE DES TUBES
+25/06/2025,"Horreur, Thriller",M3GAN 2.0
+25/06/2025,Science fiction,ETERNAL
+25/06/2025,Action,F1
+25/06/2025,"Comédie, Science fiction",LA MISSION DE L’ESPACE
+25/06/2025,Non classé,ROCK BOTTOM
+25/06/2025,Thriller,STRANGER EYES
+27/06/2025,Comédie dramatique,PARTIR UN JOUR
+02/07/2025,"Action, Aventure, Science fiction",JURASSIC WORLD EVENT FILM (TITRE PROVISOIRE)
+02/07/2025,Drame,RAPACES
+02/07/2025,Animation,FALCON EXPRESS
+02/07/2025,Comédie dramatique,LOVE (LA TRILOGIE D’OSLO)
+02/07/2025,Action,JURASSIC WORLD : RENAISSANCE
+02/07/2025,Comédie dramatique,DIDI
+02/07/2025,Thriller,LE BONHEUR EST UNE BÊTE SAUVAGE
+02/07/2025,Horreur,BRING HER BACK
+02/07/2025,Drame,MOON
+09/07/2025,"Action, Science fiction",SUPERMAN : LEGACY
+09/07/2025,Non classé,GANGS OF TAIWAN
+09/07/2025,Comédie,ANIMAL TOTEM
+09/07/2025,Documentaire,JEUNESSE (RETOUR AU PAYS)
+09/07/2025,Drame,IN THE SUMMERS
+09/07/2025,Drame,LE PAYS D’ARTO
+09/07/2025,"Documentaire, Drame",KOUTÉ VWA
+09/07/2025,Drame,FAMILIAR TOUCH
+16/07/2025,Comédie,COMME UN ŒUF
+16/07/2025,Drame,7 JOURS
+16/07/2025,"Animation, Aventure","LES SCHTROUMPF, LE FILM"
+16/07/2025,"Horreur, Thriller",I KNOW WHAT YOU DID LAST SUMMER
+23/07/2025,Aventure,LES 4 FANTASTIQUES : PREMIERS PAS
+23/07/2025,"Horreur, Thriller",DANGEROUS ANIMALS
+30/07/2025,Fantastique,DRACULA
+30/07/2025,"Comédie, Drame",SAM FAIT PLUS RIRE
+30/07/2025,"Drame, Romance",TOUCH
+06/08/2025,"Horreur, Thriller",OTHER
+06/08/2025,Comédie,Y A-T-IL UN FLIC POUR SAUVER LE MONDE ?
+06/08/2025,"Horreur, Thriller",WEAPONS
+06/08/2025,Comédie,Y A PAS DE RÉSEAU
+06/08/2025,Comédie,FREAKY FRIDAY 2
+06/08/2025,Comédie,FREAKIER FRIDAY
+13/08/2025,"Action, Aventure",KARATE KID
+13/08/2025,Animation,FLEAK
+13/08/2025,"Action, Comédie",NOBODY 2
+13/08/2025,Comédie,BAGARRE
+13/08/2025,"Drame, Thriller",BRIEF HISTORY OF A FAMILY
+20/08/2025,Drame,YELLOW LETTERS
+20/08/2025,Action,LES ORPHELINS
+20/08/2025,Horreur,LA NUIT DES CLOWNS
+20/08/2025,"Drame, Horreur",SALVE MARIA
+27/08/2025,Action,BADH
+27/08/2025,"Polar, Thriller",CAUGHT STEALING
+27/08/2025,Drame,EN PREMIÈRE LIGNE
+27/08/2025,Comédie,THE ROSES
+03/09/2025,Drame,EGOÏST
+03/09/2025,Comédie,ADIEU JEAN-PAT
+03/09/2025,Documentaire,LA CASA
+10/09/2025,Comédie,FILS DE
+10/09/2025,Documentaire,I AM THE FUTURE
+10/09/2025,"Horreur, Thriller",CONJURING : L’HEURE DU JUGEMENT
+17/09/2025,"Drame, Fantastique",LA TOUR DE GLACE
+17/09/2025,"Science fiction, Thriller",DALLOWAY
+17/09/2025,Documentaire,BARDOT
+17/09/2025,Drame,PANOPTICON
+17/09/2025,"Action, Animation",DEMON SLAYER : KIMETSU NO YAIBA – LA FORTERESSE INFINIE
+24/09/2025,Horreur,HIM
+24/09/2025,Drame,LES BRAISES
+24/09/2025,Comédie dramatique,ELLA MCCAY
+24/09/2025,Comédie dramatique,CLASSE MOYENNE
+24/09/2025,Drame,UNE BATAILLE APRÈS L’AUTRE
+24/09/2025,Non classé,SUKKWAN ISLAND
+01/10/2025,Horreur,SAW XI
+01/10/2025,Biopic,MOI QUI T’AIMAIS
+01/10/2025,"Aventure, Drame",A BIG BOLD BEAUTIFUL JOURNEY
+08/10/2025,Animation,SUPER GRAND PRIX
+08/10/2025,"Action, Animation, Science fiction",TRON: ARES
+08/10/2025,"Animation, Aventure, Comédie",GABBY’S DOLLHOUSE : THE MOVIE
+08/10/2025,Comédie,C’ÉTAIT MIEUX DEMAIN
+08/10/2025,"Polar, Thriller",SILVER STAR
+15/10/2025,"Animation, Biopic",MARCEL ET MONSIEUR PAGNOL
+15/10/2025,"Horreur, Thriller",THE BLACK PHONE 2
+15/10/2025,"Action, Polar, Science fiction",CHIEN 51
+15/10/2025,Comédie,LE JOUR G
+15/10/2025,Comédie,JOUR G
+22/10/2025,Animation,LE SECRET DES MÉSANGES
+22/10/2025,"Aventure, Science fiction",L'HOMME QUI RETRECIT
+22/10/2025,"Action, Aventure",MORTAL KOMBAT II
+22/10/2025,Comédie,"KAAMELOTT, DEUXIÈME VOLET (PARTIE 1)"
+22/10/2025,Aventure,YOROÏ
+22/10/2025,Documentaire,LES CAVALIERS DES TERRES SAUVAGES
+29/10/2025,Comédie dramatique,LA FEMME LA PLUS RICHE DU MONDE
+05/11/2025,Science fiction,PREDATOR : BADLANDS
+05/11/2025,Drame,LES RÊVEURS
+05/11/2025,"Comédie, Science fiction",BUGONIA
+05/11/2025,Science fiction,RUNNING MAN
+12/11/2025,Comédie,LA BONNE ÉTOILE
+19/11/2025,"Polar, Thriller",DOSSIER 137
+19/11/2025,Animation,THELMA DU PAYS DES GLACES
+26/11/2025,"Aventure, Comédie, Fantastique",WICKED PART 2
+26/11/2025,"Animation, Aventure, Comédie",ZOOTOPIE 2
+03/12/2025,"Horreur, Thriller",FIVE NIGHTS AT FREDDY’S 2
+10/12/2025,Aventure,CHER PÈRE NOËL
+10/12/2025,Comédie,CHASSE GARDÉE 2
+17/12/2025,"Action, Aventure",AVATAR : FIRE AND ASH
+17/12/2025,Animation,HEIDI ET LE LYNX DES MONTAGNES
+17/12/2025,"Aventure, Comédie",KANGOUROU
+17/12/2025,Non classé,LE CHANT DES FORÊTS
+24/12/2025,"Action, Aventure","BOB L’ÉPONGE, LE FILM : À LA RECHERCHE DE L’ÉPONGE PERDUE"
+24/12/2025,Comédie,LES PARFAIT(S)
+07/01/2026,"Horreur, Thriller",SOULM8TE
+28/01/2026,Thriller,GOUROU
+28/01/2026,Comédie,CHERS PARENTS
+28/01/2026,"Animation, Aventure","LES LÉGENDAIRES, LE FILM"
+28/01/2026,"Animation, Aventure",LA LÉGENDE DE AANG - LE DERNIER MAÎTRE DE L’AIR
+28/01/2026,Horreur,SEND HELP
+04/02/2026,Comédie,MARSUPILAMI
+11/02/2026,Drame,LES ENFANTS DE LA RÉSISTANCE
+18/02/2026,Animation,GOAT
+25/02/2026,Horreur,SCREAM VII
+04/03/2026,"Fantastique, Horreur",THE BRIDE !
+04/03/2026,Non classé,THE CAT IN THE HAT
+04/03/2026,Animation,HOPPERS
+08/04/2026,Comédie,COCORICO 2
+20/05/2026,"Aventure, Fantastique, Science fiction",THE MANDALORIAN & GROGU
+10/06/2026,"Comédie, Horreur",SCARY MOVIE 6
+24/06/2026,"Action, Fantastique, Science fiction",SUPERGIRL : WOMAN OF TOMORROW
+08/07/2026,"Aventure, Comédie",MOANA
+22/07/2026,"Action, Aventure",SPIDER-MAN 2026
+29/07/2026,Animation,PAW PATROL 3
+29/07/2026,Action,UNTITLED SPIDER-MAN
+12/08/2026,Thriller,FLOWERVALE STREET
+26/08/2026,"Action, Animation",TADEO JONES 4
+26/08/2026,Animation,TADEO JONES 4
+23/09/2026,"Fantastique, Romance",LE FANTÔME DE L'OPÉRA
+30/09/2026,"Action, Aventure, Drame",THE BATMAN PART II
+14/10/2026,Non classé,TEENAGE MUTANT NINJA TURTLES 2
+14/10/2026,Animation,Astérix – Le Royaume de Nubie
+09/12/2026,"Action, Aventure",JUMANJI 3
+16/12/2026,Animation,L'ÂGE DE GLACE 6
+03/02/2027,Action,FANTÔMAS
+03/02/2027,"Animation, Aventure, Science fiction",WINGS OF FREEDOM
+24/03/2027,"Animation, Aventure",SONIC 4
+30/06/2027,"Animation, Aventure, Comédie",LES MINIONS 3
+23/07/2027,"Animation, Aventure, Comédie",BAD FAIRIES
+03/11/2027,Comédie,MARGIE CLAUS
