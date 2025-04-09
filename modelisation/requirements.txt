@@ -6,3 +6,5 @@ xgboost==3.0.0
 statsmodels==0.14.4
 matplotlib==3.10.1
 pmdarima==2.0.4
+azure-identity==1.17.1
+azure-ai-ml==1.26.1
