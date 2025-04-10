@@ -22,6 +22,8 @@ class FilmItem(scrapy.Item):
     editor = scrapy.Field()
     french_boxoffice = scrapy.Field()
     french_first_week_boxoffice = scrapy.Field()
+    us_boxoffice = scrapy.Field()
+    us_first_week_boxoffice = scrapy.Field()
     langage = scrapy.Field()
     french_visa = scrapy.Field()
 

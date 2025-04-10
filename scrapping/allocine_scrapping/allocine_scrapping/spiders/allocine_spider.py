@@ -11,8 +11,7 @@ class AllocineSpider(scrapy.Spider):
     allowed_domains = ["www.allocine.fr"]
     
     #Scraps from 2010 to 2025
-    start_urls = ["https://www.allocine.fr/films/decennie-2000/",
-                   "https://www.allocine.fr/films/decennie-1990/"]
+    start_urls = ["https://www.allocine.fr/films/decennie-2020/"]
     
     base_url = "https://www.allocine.fr"
     
@@ -29,8 +28,8 @@ class AllocineSpider(scrapy.Spider):
         try:
             max_pg = int(max_pg)
         
-            # for x in range(1, 11):
-            for x in range(1, max_pg+1):
+            for x in range(1, 6):
+            # for x in range(1, max_pg+1):
                 yield response.follow(response.url+page_string+str(x), callback=self.parse_film_page)
         except:
             yield response.follow(response.url, callback=self.parse_film_page)
@@ -63,10 +62,10 @@ class AllocineSpider(scrapy.Spider):
             f["genre"] += genre.css("::text").get() + '|'
         f['genre'] = f['genre'][:-1]
         
-        f['actors'] = ""
-        for actor in film.css("div.meta-body-item.meta-body-actor span.dark-grey-link"):
-            f['actors'] += actor.css("::text").get() + '|'
-        f['actors'] = f['actors'][:-1]
+        # f['actors'] = ""
+        # for actor in film.css("div.meta-body-item.meta-body-actor span.dark-grey-link"):
+        #     f['actors'] += actor.css("::text").get() + '|'
+        # f['actors'] = f['actors'][:-1]
         
         try:
             f["date"] = film.css("div.meta-body-item.meta-body-info span.date::text").get().strip()
@@ -76,7 +75,7 @@ class AllocineSpider(scrapy.Spider):
         try:
             f["length"] = film.xpath('.//div[@class="meta-body-item meta-body-info"]/text()[normalize-space()]').get().strip()
         except: 
-            f["length"] = "0"
+            f["length"] = "N/A"
             
         f["url"] = film.css("a.meta-title-link::attr(href)").get()
         
@@ -107,12 +106,15 @@ class AllocineSpider(scrapy.Spider):
                     f['langage'] = "".join(item.css("span.that::text").getall()).strip()
                 case "N° de Visa":
                     f['french_visa'] = "".join(item.css("span.that::text").getall()).strip()
+                case "Année de production":
+                    if f['date'] == "TBR":
+                        f['date'] = "".join(item.css("span.that::text").getall()).strip()
                 case _:
                     pass
         
         #If the film does not have a French box-office, it is not returned as it isn't useful.
         if f['french_boxoffice'] != "":        
-            yield film.follow(box_office_url, callback=self.parse_box_office, meta={"item": f})
+            yield film.follow(box_office_url, callback=self.parse_box_office, meta={"item": f, "movie_url": film.url})
         
         else:
             return None
@@ -137,9 +139,33 @@ class AllocineSpider(scrapy.Spider):
             
         else:
             f['french_first_week_boxoffice'] = ""
+        
+        #If US box office is availlable, scraps it.
+        if len(titles) > 1 and titles[1] == "Box Office US":
+            boxoffice_us = response.css("tbody")[1]
+            f['us_boxoffice'] = boxoffice_us.css("td.responsive-table-column.third-col::text").getall()[-1].strip()
+            boxoffice_us = boxoffice_us.css("td.responsive-table-column.second-col.col-bg::text").getall()
+            if len(boxoffice_us) >= 2:
+                if int(boxoffice_us[0].strip().replace(" ", "")) > int(boxoffice_us[1].strip().replace(" ", "")):
+                    f['us_first_week_boxoffice'] = boxoffice_us[0].strip()
+                else:
+                    f['us_first_week_boxoffice'] = boxoffice_us[1].strip()
+            else:
+                f['us_first_week_boxoffice'] = boxoffice_us[0].strip()
+        else:
+            f['us_boxoffice'] = "N/A"
+            f['us_first_week_boxoffice'] = "N/A"
+            
+            
             
         return f
         
+    
+    def parse_casting_page(self, response):
+        f = ""
+        
+        
+        return
     
     def get_scores(self, response):
         scores = response.css("span.stareval-note::text").getall()

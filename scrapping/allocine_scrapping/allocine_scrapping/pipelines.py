@@ -32,8 +32,16 @@ class AllocineScrappingPipeline:
         #Remove white spaces
         adapter['french_first_week_boxoffice'] = adapter['french_first_week_boxoffice'].replace(" ", "")
         
+        #Remove uncessary text and white spaces
+        if adapter['us_boxoffice'] != "N/A":
+            adapter['us_boxoffice'] = adapter['us_boxoffice'].replace(" ", "")
+                
+        #Remove white spaces
+        if adapter["us_first_week_boxoffice"] != "N/A":
+           adapter['us_first_week_boxoffice'] = adapter['us_first_week_boxoffice'].replace(" ", "")
+        
         #Convert the length of the movie to minutes if availlable.
-        if adapter['length'] != "0" and adapter['length'] != "Date de sortie inconnue":
+        if adapter['length'] != "N/A" and adapter['length'] != "Date de sortie inconnue":
             adapter['length'] = self.hours_to_minutes(adapter['length'])
         
         #If the release date is known, convert it to a date format.
