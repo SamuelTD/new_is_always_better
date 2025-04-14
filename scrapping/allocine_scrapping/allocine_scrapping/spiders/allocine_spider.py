@@ -11,7 +11,10 @@ class AllocineSpider(scrapy.Spider):
     allowed_domains = ["www.allocine.fr"]
     
     #Scraps from 2010 to 2025
-    start_urls = ["https://www.allocine.fr/films/decennie-2020/"]
+    start_urls = ["https://www.allocine.fr/films/decennie-2020/",
+                  "https://www.allocine.fr/films/decennie-2010/",
+                  "https://www.allocine.fr/films/decennie-2000/",
+                  "https://www.allocine.fr/films/decennie-1990/"]
     
     base_url = "https://www.allocine.fr"
     
@@ -28,8 +31,8 @@ class AllocineSpider(scrapy.Spider):
         try:
             max_pg = int(max_pg)
         
-            for x in range(1, 6):
-            # for x in range(1, max_pg+1):
+            # for x in range(1, 6):
+            for x in range(1, max_pg+1):
                 yield response.follow(response.url+page_string+str(x), callback=self.parse_film_page)
         except:
             yield response.follow(response.url, callback=self.parse_film_page)
@@ -62,10 +65,10 @@ class AllocineSpider(scrapy.Spider):
             f["genre"] += genre.css("::text").get() + '|'
         f['genre'] = f['genre'][:-1]
         
-        # f['actors'] = ""
-        # for actor in film.css("div.meta-body-item.meta-body-actor span.dark-grey-link"):
-        #     f['actors'] += actor.css("::text").get() + '|'
-        # f['actors'] = f['actors'][:-1]
+        f['actors'] = ""
+        for actor in film.css("div.meta-body-item.meta-body-actor span.dark-grey-link"):
+            f['actors'] += actor.css("::text").get() + '|'
+        f['actors'] = f['actors'][:-1]
         
         try:
             f["date"] = film.css("div.meta-body-item.meta-body-info span.date::text").get().strip()
@@ -88,7 +91,7 @@ class AllocineSpider(scrapy.Spider):
             
         # f["synopsis"] = film.css("div.content-txt::text").get()
         
-        f["director"] = film.css("div.meta-body-item.meta-body-direction span:nth-of-type(2)::text").get()
+        f["directors"] = film.css("div.meta-body-item.meta-body-direction span:nth-of-type(2)::text").get()
         
         f['vo_title'] = film.css("div.meta-body-item span.dark-grey::text").get()
         
@@ -156,16 +159,44 @@ class AllocineSpider(scrapy.Spider):
             f['us_boxoffice'] = "N/A"
             f['us_first_week_boxoffice'] = "N/A"
             
+        casting_url = self.get_casting_url(response.meta["movie_url"])
             
-            
-        return f
+        yield response.follow(casting_url, callback=self.parse_casting_page, meta={"item": f, "movie_url": response.meta["movie_url"]})
         
     
     def parse_casting_page(self, response):
-        f = ""
         
+        f = response.meta["item"]
         
-        return
+        #If no casting page exist, return the current movie as is.
+        if response.url == response.meta["movie_url"]:
+            return f
+        
+        #Else process the page
+        else:
+            actors_cards = response.css("section.section.casting-actor a.meta-title-link::text").getall()
+            actors_list = response.css("section.section.casting-actor a.item.link::text").getall()
+            if len(actors_cards) > 0 or len(actors_list) > 0:
+                f['actors'] = ""
+                for actor in actors_cards:
+                    f['actors'] += actor + '|'
+                for actor in actors_list:
+                    f['actors'] += actor + '|'
+                    
+                f['actors'] = f['actors'][:-1]    
+                
+            directors_cards = response.css("section.section.casting-director a.meta-title-link::text").getall()
+            directors_list = response.css("section.section.casting-director a.item.link::text").getall()
+            if len(directors_cards) > 0 or len(directors_list) > 0:
+                f['directors'] = ""
+                for director in directors_cards:
+                    f['directors'] += director + '|'
+                for director in directors_list:
+                    f['directors'] += director + '|'
+                    
+                f['directors'] = f['directors'][:-1]   
+            
+        return f
     
     def get_scores(self, response):
         scores = response.css("span.stareval-note::text").getall()
@@ -182,5 +213,9 @@ class AllocineSpider(scrapy.Spider):
     def get_box_office_url(self, url):
         
         return url.replace("_gen_cfilm=", "-").replace(".html", "/box-office/")
+    
+    def get_casting_url(self, url):
+        
+        return url.replace("_gen_cfilm=", "-").replace(".html", "/casting/")
 
       

@@ -45,7 +45,7 @@ class AllocineScrappingPipeline:
             adapter['length'] = self.hours_to_minutes(adapter['length'])
         
         #If the release date is known, convert it to a date format.
-        if adapter["date"] != "TBR":
+        if adapter["date"] != "TBR" and len(adapter['date']) > 4:
             adapter['date'] = self.convert_fr_date(adapter['date'])
         
         #Transorm comas into pipes |

@@ -1,37 +1,37 @@
 import scrapy
-
-# class JpboxSpider(scrapy.Spider):
-#     name = "jpbox"
-#     allowed_domains = ["jpbox-office.com"]
-#     start_urls = ["https://www.jpbox-office.com/top100.php?view=2"]
-
-#     def parse(self, response):
-#         # Sélection des liens vers les pages des films
-#         film_links = response.css("table tr td a::attr(href)").getall()
-#         for link in film_links:
-#             if "film.php" in link:  # Vérifie qu'on a bien un lien vers un film
-#                 yield response.follow(link, callback=self.parse_film)
-
-#     def parse_film(self, response):
-#         yield {
-#             "titre": response.css("h1::text").get(),
-#             "date_sortie": response.xpath("//td[contains(text(), 'Date de sortie')]/following-sibling::td/text()").get(),
-#             "box_office_france": response.xpath("//td[contains(text(), 'Box Office France')]/following-sibling::td/text()").get(),
-#             "box_office_monde": response.xpath("//td[contains(text(), 'Box Office Monde')]/following-sibling::td/text()").get(),
-#             "genre": response.xpath("//td[contains(text(), 'Genre')]/following-sibling::td/text()").get(),
-#             "distributeur": response.xpath("//td[contains(text(), 'Distributeur')]/following-sibling::td/text()").get(),
-#             "realisateur": response.xpath("//td[contains(text(), 'Réalisé par')]/following-sibling::td/a/text()").get(),
-#             "acteurs": response.xpath("//td[contains(text(), 'Acteurs')]/following-sibling::td//a/text()").getall(),
-#        }
+from jpboxoffice.items import ActorItem
 
 class JpboxSpider(scrapy.Spider):
-    name = "jpbox"
+    name = "JpboxSpider"
     allowed_domains = ["jpbox-office.com"]
-    start_urls = ["https://www.jpbox-office.com/v9_demarrage.php?view=2"]
+    start_urls = ["https://jpbox-office.com/bigacteurs.php?tri=1&limite=0&view=2&filtre=0&filtre2=0"]
 
     def parse(self, response):
-        links = response.css('td.col_poster_titre')
-        for link in links:
-            title=link.css('::text').get()
-        return title
+        limit = 0
+        
+        while limit < 1000:
+            yield response.follow(url=f"https://jpbox-office.com/bigacteurs.php?tri=1&limite={limit}&view=2&filtre=0&filtre2=0", callback=self.parse_page)
+            limit += 25
+    
+    def parse_page(self, response):
+        
+        if response.css("div.bloc_infos_center.tablesmall1b::text").get() == "Aucune donnée disponible pour cette année.":
+            return
+        else:
+            rows = response.css("table")[1]
+            rows = rows.css("tr")
+            for row in rows:
+                if row.css("td.celluletitre").get() != None :
+                    continue
+                else:
+                    a = ActorItem()
+                    a['rank'] = row.css("div.compteur::text").get()
+                    a['name'] = row.css("td h3 a::text").get()
+                    a['amount_of_film_played_in'] = row.css("h3::text").getall()[0]
+                    a['nationality'] = row.css("h3::text").getall()[1]
+                    a['boxoffice_total'] = row.css("td.col_poster_contenu_majeur::text").getall()[0]
+                    a['boxoffice_total_first_role'] = row.css("td.col_poster_contenu::text").getall()[0]
+                    a['boxoffice_average'] = row.css("td.col_poster_contenu_majeur::text").getall()[1]
+                    a['boxoffice_average_first_role'] = row.css("td.col_poster_contenu::text").getall()[1]
+                    yield a
             

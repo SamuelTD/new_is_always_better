@@ -16,7 +16,7 @@ class FilmItem(scrapy.Item):
     url = scrapy.Field()
     critics_score = scrapy.Field()
     viewers_score = scrapy.Field()
-    director = scrapy.Field()
+    directors = scrapy.Field()
     actors = scrapy.Field()
     nationality = scrapy.Field()
     editor = scrapy.Field()
