@@ -3,16 +3,25 @@
 <header class="bg-primary grid grid-cols-3 items-center p-4">
  
     <!-- Left column: empty to help center the title -->
-    <div></div>
+    <div>
+        <a href="{% url "index"%}" class="flex items-center text-primary hover:text-secondary">
+            <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="w-32 mx-auto">
+        </a>
+    </div>
     <!-- Center column: title -->
-    <h1 class="text-center secondary-color text-xl font-semibold">
-    New is always better
-    </h1>
+    <h1 class="text-center tertiary-color text-6xl font-extrabold tracking-wider drop-shadow-md" style="font-family: 'Bebas Neue', cursive;">
+        New is always better
+      </h1>      
     <!-- Right column: login button -->
     <div class="flex justify-end">
-    <a href="{% url 'login' %}" class="btn text-white-500 py-2 px-4 rounded">
-        Login
-    </a>
+    {% if user.is_authenticated %}
+        <form method="post" class="inline" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class='btn' type="submit">Logout</button>
+        </form>       
+    {% else %}
+        <a class="btn" href={% url "login" %}>Login</a>
+    {% endif %}        
     </div>
 
   </header>

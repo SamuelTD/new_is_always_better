@@ -1,10 +1,12 @@
 :root {
-    --primary-color: rgb(41 46 30);
+    --primary-color: rgb(166 52 70);
     --primary-color-dark: rgb(166 52 70);
     --primary-color-darker: rgb(85, 44, 70);
-    --secondary-color: rgb(166 52 70);
+    --secondary-color:rgb(20, 22, 15);
     --name-color: rgb(116, 250, 250);
     --tertiary-color: rgb(251 254 249);
+    --quartary-color: rgb(127 149 209);
+    --quinary-color: rgb(188 128 52);
 }
 
 .primary-color{
@@ -15,8 +17,28 @@
     color: var(--secondary-color);
 }
 
+.tertiary-color{
+    color: var(--tertiary-color);
+}
+
 .bg-primary{
     background-color: var(--primary-color);
+}
+
+.bg-secondary{
+    background-color: var(--secondary-color);
+}
+
+.bg-tertiary{
+    background-color: var(--tertiary-color);
+}
+
+.bg-quartary{
+    background-color: var(--quartary-color);
+}
+
+.bg-quinary{
+    background-color: var(--quinary-color);
 }
 
 /* Conteneur des liens */

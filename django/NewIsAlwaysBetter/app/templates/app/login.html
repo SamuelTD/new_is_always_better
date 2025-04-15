@@ -8,13 +8,13 @@
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-<div class="bg-gray-100 flex h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
+<div class="flex h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-md space-y-8">
-        <div class="bg-white shadow-md rounded-md p-6">
+        <div class="bg-tertiary shadow-md rounded-md p-6">
 
-            {% comment %} <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="w-32 mx-auto"> {% endcomment %}
+            <img src="{% static 'images/logo_old.png' %}" alt="Site Logo" class="w-32 mx-auto">
 
-            <h2 class="my-3 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h2 class="my-3 text-center text-3xl font-bold tracking-tight primary-color">
                 Sign in
             </h2>
 
@@ -36,7 +36,7 @@
                         {% endif %}
                         
                         <!-- Label -->
-                        <label for="{{ field.id_for_label }}" class="primary-color font-bold text-left">
+                        <label for="{{ field.id_for_label }}" class="secondary-color font-bold text-left">
                             {{ field.label }} :
                         </label>
                     </div>
