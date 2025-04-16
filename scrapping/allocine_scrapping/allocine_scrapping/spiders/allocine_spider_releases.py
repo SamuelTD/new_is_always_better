@@ -1,5 +1,6 @@
 import scrapy
 from allocine_scrapping.items import FilmItem
+import datetime
 
 class AllocineSpider(scrapy.Spider):
     
@@ -7,56 +8,47 @@ class AllocineSpider(scrapy.Spider):
     This is a scrapy spider designed to scrap movies from the french website Allociné.
     """
     
-    name = "allocine_spider"
+    def get_next_wednesday():
+        today = datetime.date.today()
+        # In Python's weekday convention, Monday is 0 and Sunday is 6.
+        # Wednesday is represented by 2.
+        wednesday = 2
+        # Calculate how many days until the next Wednesday.
+        days_ahead = (wednesday - today.weekday() + 7) % 7
+        # If today is Wednesday, we want the next Wednesday (7 days ahead)
+        if days_ahead == 0:
+            days_ahead = 7
+        next_wed = today + datetime.timedelta(days=days_ahead)
+        return next_wed
+    
+    name = "allocine_spider_releases"
     allowed_domains = ["www.allocine.fr"]
     
     #Scraps from 2010 to 2025
-    start_urls = ["https://www.allocine.fr/films/decennie-2020/",
-                  "https://www.allocine.fr/films/decennie-2010/",
-                  "https://www.allocine.fr/films/decennie-2000/",
-                  "https://www.allocine.fr/films/decennie-1990/"]
+    start_urls = [f"https://www.allocine.fr/film/agenda/sem-{get_next_wednesday()}/"]
     
-    base_url = "https://www.allocine.fr"
-
+    base_url = "https://www.allocine.fr"    
+  
     def parse(self, response):
-        
-        #Each page of the list is marked by the following in the url.
-        page_string = "?page="
-        
-        #Get the amount of list pages for the current year/decades.
-        max_pg = response.css("div.pagination-item-holder span:last-child::text").get()
-        
-        #Loop through each page list.
-        #Some lists do not have a pagination block, therefore we simply loop through the single page.
-        try:
-            max_pg = int(max_pg)
-        
-            # for x in range(1, 6):
-            for x in range(1, max_pg+1):
-                yield response.follow(response.url+page_string+str(x), callback=self.parse_film_page)
-        except:
-            yield response.follow(response.url, callback=self.parse_film_page)
-  
-  
-    def parse_film_page(self, response):
         
         #Loop through each film on a list page.
         films = response.css("li.mdl")
         
         for film in films:
-            yield response.follow(film.css("a.meta-title-link::attr(href)").get(), callback=self.parse_film)
+            f = FilmItem(french_boxoffice = "", french_first_week_boxoffice = "", us_boxoffice = "", us_first_week_boxoffice = "")
+            # f["picture_url"] = film.css("img.thumbnail-img::attr(src)").get()
+            yield response.follow(film.css("a.meta-title-link::attr(href)").get(), callback=self.parse_film, meta={"item": f})
         
     
     def parse_film(self, film):
         
-        #Build the box-office page url
-        box_office_url = self.get_box_office_url(film.url)
-        
         #Instance the film Item
-        f = FilmItem(french_boxoffice = "", picture_url = "")
+        f =  film.meta["item"]
         
         #Get the critics and viewer critic scores
         scores = self.get_scores(film)
+        
+        f["picture_url"] = film.css("figure.thumbnail img.thumbnail-img::attr(src)").get()
         
         f["title"] = film.css("div.titlebar-title.titlebar-title-xl::text").get()
         
@@ -89,7 +81,7 @@ class AllocineSpider(scrapy.Spider):
             f["critics_score"] = "-"
             f["viewers_score"] = "-"
             
-        # f["synopsis"] = film.css("div.content-txt::text").get()
+        f["synopsis"] = film.css("div.content-txt p.bo-p::text").get().strip()
         
         f["directors"] = film.css("div.meta-body-item.meta-body-direction span:nth-of-type(2)::text").get()
         
@@ -115,55 +107,9 @@ class AllocineSpider(scrapy.Spider):
                 case _:
                     pass
         
-        #If the film does not have a French box-office, it is not returned as it isn't useful.
-        if f['french_boxoffice'] != "":        
-            yield film.follow(box_office_url, callback=self.parse_box_office, meta={"item": f, "movie_url": film.url})
-        
-        else:
-            return None
-
-    def parse_box_office(self, response):
-        
-        f = response.meta["item"]
-        
-        #Some movies have a innacurate first week (probably due to early screenings). 
-        #We look at the first two rows (if there are at least two rows) and compare which has the highest tickets sold.
-        #We return the higher result.
-        titles = response.css("h2::text").getall()        
-        if titles[0] == "Box Office France":      
-            boxoffice = response.css("td.responsive-table-column.second-col.col-bg::text").getall()
-            if len(boxoffice) >= 2:
-                if int(boxoffice[0].strip().replace(" ", "")) > int(boxoffice[1].strip().replace(" ", "")):
-                    f['french_first_week_boxoffice'] = boxoffice[0].strip()
-                else:
-                    f['french_first_week_boxoffice'] = boxoffice[1].strip()
-            else:
-                f['french_first_week_boxoffice'] = boxoffice[0].strip()
+        casting_url = self.get_casting_url(film.url)
+        yield film.follow(casting_url, callback=self.parse_casting_page, meta={"item": f, "movie_url": film.url}) 
             
-        else:
-            f['french_first_week_boxoffice'] = ""
-        
-        #If US box office is availlable, scraps it.
-        if len(titles) > 1 and titles[1] == "Box Office US":
-            boxoffice_us = response.css("tbody")[1]
-            f['us_boxoffice'] = boxoffice_us.css("td.responsive-table-column.third-col::text").getall()[-1].strip()
-            boxoffice_us = boxoffice_us.css("td.responsive-table-column.second-col.col-bg::text").getall()
-            if len(boxoffice_us) >= 2:
-                if int(boxoffice_us[0].strip().replace(" ", "")) > int(boxoffice_us[1].strip().replace(" ", "")):
-                    f['us_first_week_boxoffice'] = boxoffice_us[0].strip()
-                else:
-                    f['us_first_week_boxoffice'] = boxoffice_us[1].strip()
-            else:
-                f['us_first_week_boxoffice'] = boxoffice_us[0].strip()
-        else:
-            f['us_boxoffice'] = "N/A"
-            f['us_first_week_boxoffice'] = "N/A"
-            
-        casting_url = self.get_casting_url(response.meta["movie_url"])
-            
-        yield response.follow(casting_url, callback=self.parse_casting_page, meta={"item": f, "movie_url": response.meta["movie_url"]})
-        
-    
     def parse_casting_page(self, response):
         
         f = response.meta["item"]
@@ -209,10 +155,6 @@ class AllocineSpider(scrapy.Spider):
                 return [scores[0], "-"]
 
         return []
-  
-    def get_box_office_url(self, url):
-        
-        return url.replace("_gen_cfilm=", "-").replace(".html", "/box-office/")
     
     def get_casting_url(self, url):
         

@@ -2,7 +2,7 @@ import os
 from scrapy.cmdline import execute
 
 # spider = "bricospider_categories"
-spider = "allocine_spider"
+spider = "allocine_spider_releases"
 
 log_directory = f"scrapping/logs/scraping/{spider}"
 

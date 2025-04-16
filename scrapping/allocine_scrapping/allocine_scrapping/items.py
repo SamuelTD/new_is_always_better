@@ -26,4 +26,6 @@ class FilmItem(scrapy.Item):
     us_first_week_boxoffice = scrapy.Field()
     langage = scrapy.Field()
     french_visa = scrapy.Field()
+    picture_url = scrapy.Field()
+    synopsis = scrapy.Field()
 
