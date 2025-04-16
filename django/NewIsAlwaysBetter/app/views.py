@@ -46,5 +46,8 @@ class IndexView(LoginRequiredMixin, TemplateView):
         synopsis = df["synopsis"].to_list()
         context["movie_list"] = list(zip(img, titles, synopsis))
         context["predictions"] = predictions
+        context["figures"] = []
+        for x in range(1, 8):
+            context["figures"].append(f"fig{x}.png")
         return context
     

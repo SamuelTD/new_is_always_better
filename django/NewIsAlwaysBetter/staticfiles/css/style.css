@@ -1,10 +1,12 @@
 :root {
-    --primary-color: rgb(41 46 30);
+    --primary-color: rgb(166 52 70);
     --primary-color-dark: rgb(166 52 70);
     --primary-color-darker: rgb(85, 44, 70);
-    --secondary-color: rgb(166 52 70);
+    --secondary-color:rgb(20, 22, 15);
     --name-color: rgb(116, 250, 250);
     --tertiary-color: rgb(251 254 249);
+    --quartary-color: rgb(127 149 209);
+    --quinary-color: rgb(188 128 52);
 }
 
 .primary-color{
@@ -12,58 +14,31 @@
 }
 
 .secondary-color{
-    color: var(--secondary-color)
+    color: var(--secondary-color);
+}
+
+.tertiary-color{
+    color: var(--tertiary-color);
 }
 
 .bg-primary{
     background-color: var(--primary-color);
 }
 
-/* Réinitialisation de la marge et du padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.bg-secondary{
+    background-color: var(--secondary-color);
 }
 
-html, body {
-    height: 100%; /* La page occupe toujours 100% de la hauteur */
-    margin: 0;
-    display: flex;
-    flex-direction: column; /* Disposition verticale : contenu + footer */
+.bg-tertiary{
+    background-color: var(--tertiary-color);
 }
 
-/* Contenu principal */
-.content {
-    flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
-    padding: 20px;
-    text-align: center; /* Centrer le texte dans le contenu */
+.bg-quartary{
+    background-color: var(--quartary-color);
 }
 
-/* Header avec alignement */
-header {
-    background-color: var(--primary-color);
-    display: flex;
-    align-items: center; /* Aligne tout verticalement au centre */
-    justify-content: space-between; /* Espacement entre le titre, les liens, et la navigation */
-    padding: 0 20px; /* Espacement interne gauche-droite */
-    height: 80px; /* Hauteur du header */
-    color: white;
-}
-
-footer {/* Couleur de fond via une variable */
-    color: black; /* Texte blanc pour le contraste */
-     /* Centre le texte horizontalement */
-     /* Espacement vertical dans le footer */
-    font-size: 16px; /* Taille du texte */
-    flex-shrink: 0; /* Empêche le footer de se réduire si l'espace est limité */
-}
-
-/* Titre ancré à gauche */
-header h1 {
-    font-size: 36px;
-    margin: 0;
-    flex: 1; /* Occupe l'espace restant à gauche */
+.bg-quinary{
+    background-color: var(--quinary-color);
 }
 
 /* Conteneur des liens */
@@ -83,22 +58,6 @@ header h1 {
 
 .link:hover {
     text-decoration: underline;
-}
-
-/* Navigation à droite */
-nav {
-    display: flex;
-    align-items: center; /* Aligne verticalement tous les éléments */
-    gap: 10px; /* Espacement entre le texte et les boutons */
-    flex: 1; /* Occupe l'espace à droite */
-    justify-content: flex-end; /* Aligne le contenu à droite */
-}
-
-/* Style du texte (Hello user) */
-nav p {
-    margin: 0; /* Supprime les marges par défaut */
-    font-size: 16px;
-    color: white;
 }
 
 strong.name{
@@ -166,28 +125,6 @@ nav.inline {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-td{
-    border-color: #000;
-    border-width: 2px;
-    border-radius: 1px;
-    text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-th{
-    border-color: #000;
-    border-width: 2px;
-    border-radius: 1px;
-    text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-td.bold{
-    font-weight: bold;
 }
 
 .green{

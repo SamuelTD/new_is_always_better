@@ -24,7 +24,7 @@
         <div id="main" class="main-content flex-1 bg-primary mt-12 md:mt-2 pb-24 md:pb-5">
 
             <div class="bg-secondary pt-3">
-                <div class="rounded-tl-3xl bg-tertiary p-4 shadow text-2xl text-black">
+                <div class="rounded-tl-3xl bg-tertiary p-4 shadow text-2xl text-black flex justify-center items-center gap-4">
                     <button class="btn" onclick="changeContent('releases')">A paraître</button>
                     <button class="btn" onclick="changeContent('content2')">Prédictions</button>
                     <button class="btn" onclick="changeContent('content3')">Dashboard</button>
@@ -33,7 +33,9 @@
 
              <!-- Container -->
             <div class="container mx-auto p-4", id="content">
-                
+                <div class="flex justify-center text-white">
+                    <h1 class="pt-10">Bienvenue sur votre application !</h1>
+                </div>
             </div>
         </div> 
     </section>
@@ -43,13 +45,12 @@
           var contentDiv = document.getElementById('content');
           if (contentId === 'releases') {
             contentDiv.innerHTML =
-            `<h1 class="text-3xl font-bold text-center mb-8 tertiary-color">A paraître</h1>
+            `<h1 class="text-3xl font-bold text-center mb-8 tertiary-color pt-5">A paraître</h1>
             <div class="border-t border-white w-[75%] mx-auto pt-5"></div>
             <!-- Responsive Grid: 1 col on extra-small screens, 2 on small, 3 on medium, 4 on large, and 5 on extra-large screens -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             
                 {% for picture, title, synopsis in movie_list %}
-                    <!-- Card 5 -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <img src={{ picture }}></img>
                         <h2 class="text-xl font-bold mb-2">{{ title }}</h2>
@@ -59,24 +60,65 @@
             </div>`;
           } else if (contentId === 'content2') {
             contentDiv.innerHTML =
-            `<h1 class="text-3xl font-bold text-center mb-8 tertiary-color">Prédictions de la semaine : </h1>
+            `<h1 class="text-3xl font-bold text-center mb-8 tertiary-color pt-5">Prédictions de la semaine : </h1>
             <div class="border-t border-white w-[75%] mx-auto pt-5"></div>
             <!-- Responsive Grid: 1 col on extra-small screens, 2 on small, 3 on medium, 4 on large, and 5 on extra-large screens -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            
+            <div class="grid grid-cols-4 justify-items-center gap-[10px] pb-5">
+                <div></div>
+
                 {% for prediction in predictions %}
-                    <!-- Card 5 -->
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <img src={{ prediction.picture_url }}></img>
-                        <h2 class="text-xl font-bold mb-2">{{ prediction.title }}</h2>
-                        <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
-                    </div>
-                {% endfor %}  
+                    {% if forloop.counter <= 2%}
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            {% if forloop.counter == 1 %}
+                                <img src="{% static 'images/gold_crown.svg' %}"></img>
+                                 <img src="{% static 'images/sarazin.png' %}""></img>
+                            {% else %}
+                                <img src="{% static 'images/silver_crown.svg' %}""></img>
+                                 <img src="{{ prediction.picture_url }}"></img>
+                            {% endif %}
+                               
+                                <h2 class="text-xl font-bold mb-2">{{ prediction.title }}</h2>
+                                <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
+                        </div>
+                        {% if forloop.counter == 2 %}
+                            <div></div>
+                            </div>
+                            <div class="border-t border-white w-[75%] mx-auto pt-5"></div>
+                        {% endif %}
+                    {% elif forloop.counter == 3 %}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                    <h2 class="text-xl font-bold mb-2">{{ prediction.title }}</h2>
+                                    <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
+                            </div>
+                    {% else %}
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                                    <h2 class="text-xl font-bold mb-2">{{ prediction.title }}</h2>
+                                    <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
+                            </div>
+                    {% endif %}
+                 {% endfor %}  
             </div>`;
           } else if (contentId === 'content3') {
             contentDiv.innerHTML =
-              '<h2>Content 3</h2>' +
-              '<p>This is the third content block, displaying yet another unique perspective for Button 3.</p>';
+              `<div class="container mx-auto px-4 py-6">
+                <!-- Sleek, rounded container -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="max-w-5xl mx-auto">
+                    <!-- Responsive grid: 1 column on small screens (adjust md:grid-cols-1 if needed) -->
+                    <div class="grid grid-cols-1 md:grid-cols-1 gap-[10px]">
+                        {% for figure in figures %}
+                             <h2 class="pd-5 text-black font-serif font-bold text-3xl tracking-wide mb-2 text-center">Figure {{ forloop.counter }}</h2>
+                             <div class="bg-tertiary rounded-lg shadow-md overflow-hidden">                       
+                                <img src="{% static 'images/figures/' %}{{ figure }}" alt="Picture {{ forloop.counter }}" class="w-full h-auto object-cover pb-5">                            
+                            </div>
+                        <div class="border-t border-black w-[75%] mx-auto pt-5 pb-5 "></div>
+                        {% endfor %}
+                    </div>
+                    </div>
+                </div>
+                </div>
+                `;
           }
         }
       </script>
