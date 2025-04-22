@@ -1,8 +1,11 @@
 import os
 from scrapy.cmdline import execute
+from datetime import date
 
 # spider = "bricospider_categories"
-spider = "allocine_spider"
+spider = "allocine_spider_releases"
+
+t_date = str(date.today())
 
 log_directory = f"scrapping/logs/scraping/{spider}"
 
@@ -27,7 +30,7 @@ try:
         'crawl',
         spider,
         '-o',
-        f'{spider}.csv'
+        f'{spider}_{t_date}.csv'
         # '-s',
         # f'LOG_FILE={log_file}'
     ])

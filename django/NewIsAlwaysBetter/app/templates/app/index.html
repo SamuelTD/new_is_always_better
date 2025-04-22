@@ -20,6 +20,7 @@
 {% endblock head %}
 
 {% block content %}
+    {% csrf_token %}
     <section>
         <div id="main" class="main-content flex-1 bg-primary mt-12 md:mt-2 pb-24 md:pb-5">
 
@@ -71,10 +72,10 @@
                         <div class="bg-white rounded-lg shadow-md p-6">
                             {% if forloop.counter == 1 %}
                                 <img src="{% static 'images/gold_crown.svg' %}"></img>
-                                 <img src="{% static 'images/sarazin.png' %}""></img>
+                                <img src="{{ prediction.picture_url }}"></img>
                             {% else %}
                                 <img src="{% static 'images/silver_crown.svg' %}""></img>
-                                 <img src="{{ prediction.picture_url }}"></img>
+                                <img src="{{ prediction.picture_url }}"></img>
                             {% endif %}
                                
                                 <h2 class="text-xl font-bold mb-2">{{ prediction.title }}</h2>

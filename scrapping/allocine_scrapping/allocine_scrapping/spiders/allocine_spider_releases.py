@@ -72,7 +72,7 @@ class AllocineSpider(scrapy.Spider):
         except: 
             f["length"] = "N/A"
             
-        f["url"] = film.css("a.meta-title-link::attr(href)").get()
+        f["url"] = film.url
         
         if scores != []:
             f["critics_score"] = scores[0]
