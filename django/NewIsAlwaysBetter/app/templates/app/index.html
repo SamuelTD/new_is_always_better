@@ -125,7 +125,7 @@
             </div>`;
           } else if (contentId === 'history') {
             contentDiv.innerHTML =
-                ` <h1 class="text-3xl font-bold text-center mb-8 tertiary-color pt-5">Historique </h1>
+                `<h1 class="text-3xl font-bold text-center mb-8 tertiary-color pt-5">Historique </h1>
                 <div class="border-t border-white w-[75%] mx-auto pt-5"></div>
                 <div class="container mx-auto px-4 py-6">
 
@@ -152,7 +152,14 @@
                                     </a>
                                 </h2>
                                 <p class="text-gray-600">Affluence espérée : {{ week.movie_1.predicted_affluence }}</p>
-                                <p class="text-gray-600">Affluence réelle : N/A</p>
+                                <p class="text-gray-600">
+                                Affluence réelle :
+                                {% if week.movie_1.real_affluence > week.movie_1.predicted_affluence %}
+                                    <span class="text-green-600 font-bold">{{ week.movie_1.real_affluence }}</span>
+                                {% else %}
+                                    <span class="text-red-600 font-bold">{{ week.movie_1.real_affluence }}</span>
+                                {% endif %}
+                            </p>
                             </div>
 
                             <!-- Movie 2 -->
@@ -166,8 +173,15 @@
                                         {{ week.movie_2.title }}
                                     </a>
                                 </h2>
-                                <p class="text-gray-600">Affluence espérée : {{ week.movie_2.predicted_affluence }}</p>
-                                <p class="text-gray-600">Affluence réelle : N/A</p>
+                            <p class="text-gray-600">Affluence espérée : {{ week.movie_2.predicted_affluence }}</p>
+                            <p class="text-gray-600">
+                                Affluence réelle :
+                                {% if week.movie_2.real_affluence > week.movie_2.predicted_affluence %}
+                                    <span class="text-green-600 font-bold">{{ week.movie_2.real_affluence }}</span>
+                                {% else %}
+                                    <span class="text-red-600 font-bold">{{ week.movie_2.real_affluence }}</span>
+                                {% endif %}
+                            </p>
                             </div>
 
                             <!-- Ending spacer column -->

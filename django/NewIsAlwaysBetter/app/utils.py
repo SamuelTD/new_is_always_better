@@ -36,7 +36,7 @@ def get_history():
         }
         top_movies_by_week.append(entry)
     
-    return top_movies_by_week
+    return top_movies_by_week[::-1]
 
 def get_next_wednesday():
     today = date.today()

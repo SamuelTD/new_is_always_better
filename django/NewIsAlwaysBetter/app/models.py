@@ -9,4 +9,6 @@ class Movie(models.Model):
     picture_url = models.CharField(max_length=256, default="")
     synopsis = models.CharField(max_length=1500, default="")
     predicted_affluence = models.PositiveIntegerField(verbose_name="Affluence prédite", default=0)
+    real_affluence = models.PositiveBigIntegerField(verbose_name="Affluence réelle", default=0)
     date = models.DateField(default=now)
+    
