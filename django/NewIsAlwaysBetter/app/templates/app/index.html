@@ -51,13 +51,17 @@
             <!-- Responsive Grid: 1 col on extra-small screens, 2 on small, 3 on medium, 4 on large, and 5 on extra-large screens -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             
-                {% for picture, title, synopsis in movie_list %}
+                {% for picture, title, synopsis, url in movie_list %}
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <img src={{ picture }}></img>
-                        <h2 class="text-xl font-bold mb-2">{{ title }}</h2>
+                        <img src="{{ picture }}" class="mb-4" />
+                        <h2 class="text-xl font-bold mb-2">
+                            <a href="{{ url }}" target="_blank" class="text-blue-600 hover:underline">
+                                {{ title }}
+                            </a>
+                        </h2>
                         <p class="text-gray-600">{{ synopsis }}</p>
                     </div>
-                {% endfor %}  
+                {% endfor %}
             </div>`;
           } else if (contentId === 'content2') {
             contentDiv.innerHTML =
@@ -78,7 +82,11 @@
                                 <img src="{{ prediction.picture_url }}"></img>
                             {% endif %}
                                
-                                <h2 class="text-xl font-bold mb-2">{{ prediction.title }}</h2>
+                                <h2 class="text-xl font-bold mb-2">
+                                    <a href="{{ prediction.url }}" target="_blank" class="text-blue-600 hover:underline">
+                                        {{ prediction.title }}
+                                    </a>
+                                </h2>
                                 <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
                         </div>
                         {% if forloop.counter == 2 %}
@@ -89,12 +97,20 @@
                     {% elif forloop.counter == 3 %}
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                             <div class="bg-white rounded-lg shadow-md p-6">
-                                    <h2 class="text-xl font-bold mb-2">{{ prediction.title }}</h2>
+                                    <h2 class="text-xl font-bold mb-2">
+                                        <a href="{{ prediction.url }}" target="_blank" class="text-blue-600 hover:underline">
+                                            {{ prediction.title }}
+                                        </a>
+                                    </h2>
                                     <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
                             </div>
                     {% else %}
                         <div class="bg-white rounded-lg shadow-md p-6">
-                                    <h2 class="text-xl font-bold mb-2">{{ prediction.title }}</h2>
+                                    <h2 class="text-xl font-bold mb-2">
+                                        <a href="{{ prediction.url }}" target="_blank" class="text-blue-600 hover:underline">
+                                            {{ prediction.title }}
+                                        </a>
+                                    </h2>
                                     <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
                             </div>
                     {% endif %}

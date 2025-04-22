@@ -17,9 +17,9 @@ class IndexView(LoginRequiredMixin, TemplateView):
     
     def get_context_data(self, **kwargs) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
-        img, titles, synopsis, predictions = get_movie_datas()        
+        img, titles, synopsis, url, predictions = get_movie_datas()        
         
-        context["movie_list"] = list(zip(img, titles, synopsis))
+        context["movie_list"] = list(zip(img, titles, synopsis, url))
         context["predictions"] = predictions
         context["figures"] = []
         for x in range(1, 13):

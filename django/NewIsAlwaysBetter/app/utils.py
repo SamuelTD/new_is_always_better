@@ -22,6 +22,7 @@ def get_movie_datas() :
     img = []
     titles = []
     synopsis = []
+    url = []
     predictions = []
     if not Movie.objects.filter(date=date_to_check).exists():
         df = pd.read_csv("allocine_spider_releases.csv")
@@ -47,7 +48,6 @@ def get_movie_datas() :
             movies.append(row.to_dict())
             movie_items.append(movie_item)
         
-        print(movies)
         response = requests.post(os.getenv("API_URL"),json=movies)
         predictions = response.json()
         predictions = sorted(predictions["predictions"], key=lambda x: x["predicted_affluence"], reverse=True)
@@ -65,6 +65,7 @@ def get_movie_datas() :
         img = df["picture_url"].to_list()
         titles = df["title"].to_list()
         synopsis = df["synopsis"].to_list()
+        url = df["url"].to_list()
         
     else:
         movies = Movie.objects.filter(date=date_to_check).order_by("-predicted_affluence")        
@@ -72,6 +73,8 @@ def get_movie_datas() :
             img.append(movie.picture_url)
             titles.append(movie.title)
             synopsis.append(movie.synopsis)
-            predictions.append({"title": movie.title, "predicted_affluence": movie.predicted_affluence, "picture_url": movie.picture_url})
+            url.append(movie.url)
+            predictions.append({"title": movie.title, "predicted_affluence": movie.predicted_affluence, "picture_url": movie.picture_url,\
+                "url": movie.url})
     
-    return img, titles, synopsis, predictions
+    return img, titles, synopsis, url, predictions
