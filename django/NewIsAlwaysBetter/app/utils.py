@@ -1,8 +1,42 @@
+from collections import defaultdict
 from datetime import timedelta, date
 import pandas as pd
 import requests
 from app.models import Movie
 import os
+
+def get_week_start(date):
+    # Align each date to its release Wednesday
+    return date - timedelta(days=(date.weekday() - 2) % 7)  # 2 = Wednesday
+
+def get_history():
+
+    # Get all movies with predictions
+    movies = Movie.objects.exclude(predicted_affluence=None).order_by('date')
+
+    # Group by release week (each Wednesday)
+    weekly_groups = defaultdict(list)
+
+    for movie in movies:
+        week = get_week_start(movie.date)
+        weekly_groups[week].append(movie)
+
+    # Get top 2 by prediction per week
+    top_movies_by_week = []
+
+    for week, group in weekly_groups.items():
+        sorted_group = sorted(group, key=lambda m: m.predicted_affluence, reverse=True)
+        top_two = sorted_group[:2]
+
+        # Build dictionary
+        entry = {
+            "date": week.strftime("%d/%m/%Y"),
+            "movie_1": top_two[0] if len(top_two) > 0 else None,
+            "movie_2": top_two[1] if len(top_two) > 1 else None,
+        }
+        top_movies_by_week.append(entry)
+    
+    return top_movies_by_week
 
 def get_next_wednesday():
     today = date.today()
@@ -17,13 +51,19 @@ def get_next_wednesday():
     next_wed = today + timedelta(days=days_ahead)
     return next_wed
 
-def get_movie_datas() :
-    date_to_check = get_next_wednesday()
+def get_movie_datas(force_date: date = None) :
+    
+    if not force_date:
+        date_to_check = get_next_wednesday()
+    else:
+        date_to_check = force_date
+        
     img = []
     titles = []
     synopsis = []
     url = []
     predictions = []
+    
     if not Movie.objects.filter(date=date_to_check).exists():
         df = pd.read_csv("allocine_spider_releases.csv")
         df['genre'] = df['genre'].str.split('|')

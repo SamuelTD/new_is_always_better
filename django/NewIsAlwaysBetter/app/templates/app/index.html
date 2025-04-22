@@ -2,13 +2,13 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Dashboard{% endblock title %}
+{% block title %}New is always better app{% endblock title %}
 
 {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tailwind Admin Starter Template : Tailwind Toolbox</title>
+
     <meta name="author" content="name">
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
@@ -27,17 +27,20 @@
             <div class="bg-secondary pt-3">
                 <div class="rounded-tl-3xl bg-tertiary p-4 shadow text-2xl text-black flex justify-center items-center gap-4">
                     <button class="btn" onclick="changeContent('releases')">A paraître</button>
-                    <button class="btn" onclick="changeContent('content2')">Prédictions</button>
-                    <button class="btn" onclick="changeContent('content3')">Dashboard</button>
+                    <button class="btn" onclick="changeContent('predictions')">Prédictions</button>
+                    <button class="btn" onclick="changeContent('dashboard')">Dashboard</button>
+                    <button class="btn" onclick="changeContent('history')">Historique</button>
                 </div>
             </div>
 
              <!-- Container -->
-            <div class="container mx-auto p-4", id="content">
-                <div class="flex justify-center text-white">
-                    <h1 class="pt-10">Bienvenue sur votre application !</h1>
+             <div class="container mx-auto p-4" id="content">
+                <div class="flex flex-col items-center text-white">
+                    <h1 class="pt-10 text-4xl font-bold mb-4">Bienvenue sur votre application !</h1>
+                    <img src="{% static 'images/licorn.png' %}" alt="Licorn Logo" class="w-64" />
                 </div>
             </div>
+            
         </div> 
     </section>
 
@@ -63,9 +66,9 @@
                     </div>
                 {% endfor %}
             </div>`;
-          } else if (contentId === 'content2') {
+          } else if (contentId === 'predictions') {
             contentDiv.innerHTML =
-            `<h1 class="text-3xl font-bold text-center mb-8 tertiary-color pt-5">Prédictions de la semaine : </h1>
+            `<h1 class="text-3xl font-bold text-center mb-8 tertiary-color pt-5">Prédictions de la semaine </h1>
             <div class="border-t border-white w-[75%] mx-auto pt-5"></div>
             <!-- Responsive Grid: 1 col on extra-small screens, 2 on small, 3 on medium, 4 on large, and 5 on extra-large screens -->
             <div class="grid grid-cols-4 justify-items-center gap-[10px] pb-5">
@@ -75,10 +78,14 @@
                     {% if forloop.counter <= 2%}
                         <div class="bg-white rounded-lg shadow-md p-6">
                             {% if forloop.counter == 1 %}
-                                <img src="{% static 'images/gold_crown.svg' %}"></img>
+                                <div class="flex justify-center mb-2">
+                                    <img src="{% static 'images/gold_crown.svg' %}" class="w-16" />
+                                </div>
                                 <img src="{{ prediction.picture_url }}"></img>
                             {% else %}
-                                <img src="{% static 'images/silver_crown.svg' %}""></img>
+                                <div class="flex justify-center mb-2">
+                                    <img src="{% static 'images/silver_crown.svg' %}" class="w-16" />
+                                </div>
                                 <img src="{{ prediction.picture_url }}"></img>
                             {% endif %}
                                
@@ -116,7 +123,66 @@
                     {% endif %}
                  {% endfor %}  
             </div>`;
-          } else if (contentId === 'content3') {
+          } else if (contentId === 'history') {
+            contentDiv.innerHTML =
+                ` <h1 class="text-3xl font-bold text-center mb-8 tertiary-color pt-5">Historique </h1>
+                <div class="border-t border-white w-[75%] mx-auto pt-5"></div>
+                <div class="container mx-auto px-4 py-6">
+
+                    {% for week in history %}
+
+                        <!-- Week title -->
+                        <h1 class="text-2xl text-white font-bold text-center mb-6">Semaine du {{ week.date }}</h1>
+
+                        <!-- Grid layout like predictions section -->
+                        <div class="grid grid-cols-4 justify-items-center gap-[10px] pb-5">
+
+                            <!-- Empty spacer column -->
+                            <div></div>
+
+                            <!-- Movie 1 -->
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <div class="flex justify-center mb-2">
+                                    <img src="{% static 'images/gold_crown.svg' %}" class="w-16" />
+                                </div>
+                                <img src="{{ week.movie_1.picture_url }}" />
+                                <h2 class="text-xl font-bold mb-2">
+                                    <a href="{{ week.movie_1.url }}" target="_blank" class="text-blue-600 hover:underline">
+                                        {{ week.movie_1.title }}
+                                    </a>
+                                </h2>
+                                <p class="text-gray-600">Affluence espérée : {{ week.movie_1.predicted_affluence }}</p>
+                                <p class="text-gray-600">Affluence réelle : N/A</p>
+                            </div>
+
+                            <!-- Movie 2 -->
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <div class="flex justify-center mb-2">
+                                    <img src="{% static 'images/silver_crown.svg' %}" class="w-16" />
+                                </div>
+                                <img src="{{ week.movie_2.picture_url }}" />
+                                <h2 class="text-xl font-bold mb-2">
+                                    <a href="{{ week.movie_2.url }}" target="_blank" class="text-blue-600 hover:underline">
+                                        {{ week.movie_2.title }}
+                                    </a>
+                                </h2>
+                                <p class="text-gray-600">Affluence espérée : {{ week.movie_2.predicted_affluence }}</p>
+                                <p class="text-gray-600">Affluence réelle : N/A</p>
+                            </div>
+
+                            <!-- Ending spacer column -->
+                            <div></div>
+                        </div>
+
+                        {% if not forloop.last %}
+                            <!-- Divider -->
+                            <div class="border-t border-white w-[75%] mx-auto pt-5"></div>
+                        {% endif %}
+
+                    {% endfor %}
+                </div>`;
+          }
+          else if (contentId === 'dashboard') {
             contentDiv.innerHTML =
               `<div class="container mx-auto px-4 py-6">
                 <!-- Sleek, rounded container -->
