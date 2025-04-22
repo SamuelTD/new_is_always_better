@@ -117,4 +117,9 @@ def get_movie_datas(force_date: date = None) :
             predictions.append({"title": movie.title, "predicted_affluence": movie.predicted_affluence, "picture_url": movie.picture_url,\
                 "url": movie.url})
     
+    for i in range(len(synopsis)):
+        if len(synopsis[i]) > 200:
+            synopsis[i] = synopsis[i][:197] + "..."
+
+    
     return img, titles, synopsis, url, predictions
