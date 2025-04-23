@@ -28,7 +28,24 @@ class AllocineSpider(scrapy.Spider):
     start_urls = [f"https://www.allocine.fr/film/agenda/sem-{get_next_wednesday()}/"]
     
     base_url = "https://www.allocine.fr"    
-  
+    
+    date = get_next_wednesday()
+    
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+        """_summary_ Permet d'assigner les pipelines à cette spider
+
+        Args:
+            crawler (_type_): _description_
+
+        Returns:
+            _type_: _description_ la spider BricospiderSpider qui permet de récupérer les catégories
+        """
+        spider = super(AllocineSpider, cls).from_crawler(crawler, *args, **kwargs)
+        # Ajouter dynamiquement une pipeline spécifique à cette spider
+        crawler.settings.set('ITEM_PIPELINES', {"allocine_scrapping.pipelines.AllocineScrappingReleasesPipeline": 300})
+        return spider
+    
     def parse(self, response):
         
         #Loop through each film on a list page.

@@ -120,6 +120,5 @@ def get_movie_datas(force_date: date = None) :
     for i in range(len(synopsis)):
         if len(synopsis[i]) > 200:
             synopsis[i] = synopsis[i][:197] + "..."
-
     
     return img, titles, synopsis, url, predictions
