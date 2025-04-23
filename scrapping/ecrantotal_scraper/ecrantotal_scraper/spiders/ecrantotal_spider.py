@@ -21,7 +21,13 @@ class ecrantotalSpider(scrapy.Spider):
                 item["date"]=date
                 item["title"]= film.css("div.titre h3::text").get()
                 item["genre"]= film.css("p.small.genre::text").get()
+                try:
+                    item["url_picture"] = film.css("img::attr(src)").getall()[1]
+                except:
+                    item["url_picture"] = film.css("img::attr(src)").get()
                 list_films.append(item)
+            
+            break
         
         return list_films
 
