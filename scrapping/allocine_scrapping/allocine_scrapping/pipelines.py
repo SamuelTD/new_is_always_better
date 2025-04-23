@@ -6,9 +6,12 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-from datetime import datetime
+from datetime import datetime, date
 import pandas as pd
 import pyodbc
+import requests
+import os
+from dotenv import load_dotenv
 
 
 class AllocineScrappingPipeline:
@@ -103,6 +106,8 @@ class AllocineScrappingReleasesPipeline:
 
     def open_spider(self, spider):
         
+        load_dotenv()
+        
         self.conn = pyodbc.connect(
              'DRIVER={ODBC Driver 18 for SQL Server};'
             'SERVER=samueltd-sql-server.database.windows.net;'
@@ -144,9 +149,7 @@ class AllocineScrappingReleasesPipeline:
         #Transorm comas into pipes |
         adapter["langage"] = adapter["langage"].replace(", ", "|")
         
-        adapter["nationality"] = adapter["nationality"].replace(" ", "|")
-
-        self.insert_item(item)        
+        adapter["nationality"] = adapter["nationality"].replace(" ", "|")      
         
         return item
 
@@ -155,13 +158,63 @@ class AllocineScrappingReleasesPipeline:
         On the spider closing, create a parquet file from the created .csv
         """
         
-        # df = pd.read_csv("./allocine_spider.csv")
-        # df.to_parquet("allocine_spider.parquet", index=False)  
+        df = pd.read_csv(f"./allocine_spider_releases_{str(date.today())}.csv")
+        
+        df['genre'] = df['genre'].str.split('|')
+        df['actors'] = df['actors'].str.split('|')
+        df['actors'] = df['actors'].mask(df['actors'].isna(), ['no value'])
+        df['directors'] = df['directors'].mask(df['directors'].isna(), ['no value'])
+        df['nationality'] = df['nationality'].str.split('|')
+        df['langage'] = df['langage'].str.split('|')     
+        df['directors'] = df['directors'].str.split('|')     
+        df['date']= pd.to_datetime(df['date'], errors='coerce')
+        df["date"] = df["date"].dt.strftime("%Y-%m-%dT%H:%M:%S")
+        df2  = df[["actors", "date", "directors", "editor", "genre", "langage", "length", "nationality", "title"]]
+        movies = []
+        movies_items = []
+        for (index, row), (index2, row2) in zip(df2.iterrows(), df.iterrows()):
+            if row["actors"] == "no value":
+                row["actors"] = []
+            if row["directors"] == "no value":
+                row["directors"] = []
+                
+            movies.append(row.to_dict())
+            movies_items.append({"title": row2["title"], "url": row2['url'], 'picture_url': row2['picture_url'],\
+                'synopsis': row2['synopsis'], 'date': row2['date'], 'predicted_affluence': 0})
+        
+        response = requests.post(os.getenv("API_URL"),json=movies)
+        predictions = response.json()
+        predictions = sorted(predictions["predictions"], key=lambda x: x["predicted_affluence"], reverse=True)
+        for prediction in predictions:
+            prediction["predicted_affluence"] = int(prediction["predicted_affluence"]/2000)
+            for movie_item in movies_items:
+                if movie_item['title'] == prediction["title"]:
+                    movie_item['predicted_affluence'] = prediction["predicted_affluence"]  
+                    break
+            
+        for movie_item in movies_items:
+            self.insert_item(movie_item)  
         
         self.conn.commit()
         self.conn.close()
-        
     
+    def insert_item(self, item):
+        
+        self.cursor.execute(
+            """
+            INSERT INTO app_movie (title, url, picture_url, synopsis, date, real_affluence, predicted_affluence)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            item['title'],
+            item['url'],
+            item['picture_url'],
+            item['synopsis'],
+            item["date"],
+            0,
+            item['predicted_affluence']
+        )
+    
+        
     def hours_to_minutes(self, h)  -> int:
         """
         Transform string formatted movie length into minutes.
@@ -184,19 +237,3 @@ class AllocineScrappingReleasesPipeline:
             date_str = date_str.replace(fr, en)
         
         return datetime.strptime(date_str, '%d %B %Y').date()
-    
-    def insert_item(self, item):
-        
-        self.cursor.execute(
-            """
-            INSERT INTO app_movie (title, url, picture_url, synopsis, date, real_affluence, predicted_affluence)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,
-            item['title'],
-            item['url'],
-            item['picture_url'],
-            item['synopsis'],
-            item["date"],
-            0,
-            0
-        )
