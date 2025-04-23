@@ -1,12 +1,20 @@
 import scrapy
 from allocine_scrapping.items import FilmItem
 import datetime
+import re
 
 class AllocineSpider(scrapy.Spider):
     
     """
     This is a scrapy spider designed to scrap movies from the french website Allociné.
     """
+
+    mois_fr_to_en = {
+        'janvier': 'January', 'février': 'February', 'mars': 'March', 
+        'avril': 'April', 'mai': 'May', 'juin': 'June', 
+        'juillet': 'July', 'août': 'August', 'septembre': 'September', 
+        'octobre': 'October', 'novembre': 'November', 'décembre': 'December'
+        }
     
     def get_next_wednesday():
         today = datetime.date.today()
@@ -20,6 +28,16 @@ class AllocineSpider(scrapy.Spider):
             days_ahead = 7
         next_wed = today + datetime.timedelta(days=days_ahead)
         return next_wed
+    
+    def convert_fr_date(self, date_str) -> datetime:
+
+        """
+        Convert a string formatted date into a datetime object.
+        """
+        for fr, en in self.mois_fr_to_en.items():
+            date_str = date_str.replace(fr, en)
+        
+        return datetime.datetime.strptime(date_str, '%d %B %Y').date()
     
     name = "allocine_spider_releases"
     allowed_domains = ["www.allocine.fr"]
@@ -81,8 +99,19 @@ class AllocineSpider(scrapy.Spider):
         
         try:
             f["date"] = film.css("div.meta-body-item.meta-body-info span.date::text").get().strip()
+            # check if redif
+            if self.convert_fr_date(f["date"]) < datetime.date.today():
+                return
         except:
             f["date"] = "TBR"
+        
+        # check if there less than 5 sceances
+        # _nb_sceance = film.css("div.buttons-holder span.button.button-sm.button-inverse-full span.txt::text").get().strip()
+        # match = re.search(r"\((\d+)\)", _nb_sceance)
+        # if match:
+        #     nb = int(match.group(1))
+        #     if nb < 5:
+        #         return
             
         try:
             f["length"] = film.xpath('.//div[@class="meta-body-item meta-body-info"]/text()[normalize-space()]').get().strip()
