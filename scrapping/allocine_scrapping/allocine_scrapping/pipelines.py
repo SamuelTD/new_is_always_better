@@ -93,7 +93,7 @@ class AllocineScrappingPipeline:
         return datetime.strptime(date_str, '%d %B %Y').date()
 
         
-### region OSEF
+# region RELEASES
 
 class AllocineScrappingReleasesPipeline:
 
@@ -110,10 +110,10 @@ class AllocineScrappingReleasesPipeline:
         
         self.conn = pyodbc.connect(
              'DRIVER={ODBC Driver 18 for SQL Server};'
-            'SERVER=samueltd-sql-server.database.windows.net;'
-            'DATABASE=samuelTD-django-new_is_always_better;'
-            'UID=NIAB_admin;'
-            'PWD=LUVIRASA_2025'            
+            f'SERVER={os.getenv("DB_HOST")};'
+            f'DATABASE={os.getenv("DB_NAME")};'
+            f'UID={os.getenv("DB_USER")};'
+            f'PWD={os.getenv("DB_PASSWORDr")}'            
         )
         self.cursor = self.conn.cursor()
         
