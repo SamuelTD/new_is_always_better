@@ -8,7 +8,7 @@ from app.predict import predict_film_affluence
 app = FastAPI(
     title="Film Affluence Prediction API",
     description="API pour prédire l'affluence des nouveaux films",
-    version="1.0.0"
+    version="1.0.1"
 )
 
 @app.post("/predict", response_model=FilmPredictionResponse)
