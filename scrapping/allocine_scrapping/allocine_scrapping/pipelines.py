@@ -8,9 +8,11 @@
 from itemadapter import ItemAdapter
 from datetime import datetime, date
 import pandas as pd
+import numpy as np
 import pyodbc
 import requests
 import os
+import json
 from dotenv import load_dotenv
 
 
@@ -159,29 +161,32 @@ class AllocineScrappingReleasesPipeline:
         """
         
         df = pd.read_csv(f"./allocine_spider_releases_{str(date.today())}.csv")
+        for col in ['genre', 'langage', 'nationality', 'directors', 'actors']:
+            df[col] = df[col].str.split('|')
+            df[col] = df[col].apply(lambda x : x if type(x) in {np.ndarray, list} else ["no value"])
         
-        df['genre'] = df['genre'].str.split('|')
-        df['actors'] = df['actors'].str.split('|')
-        df['actors'] = df['actors'].mask(df['actors'].isna(), ['no value'])
-        df['directors'] = df['directors'].mask(df['directors'].isna(), ['no value'])
-        df['nationality'] = df['nationality'].str.split('|')
-        df['langage'] = df['langage'].str.split('|')     
-        df['directors'] = df['directors'].str.split('|')     
+        # df['genre'] = df['genre'].str.split('|')
+        # df['actors'] = df['actors'].str.split('|')
+        # df['actors'] = df['actors'].mask(df['actors'].isna(), ['no value'])
+        # df['directors'] = df['directors'].mask(df['directors'].isna(), ['no value'])
+        # df['nationality'] = df['nationality'].str.split('|')
+        # df['langage'] = df['langage'].str.split('|')     
+        # df['directors'] = df['directors'].str.split('|')     
         df['date']= pd.to_datetime(df['date'], errors='coerce')
         df["date"] = df["date"].dt.strftime("%Y-%m-%dT%H:%M:%S")
         df2  = df[["actors", "date", "directors", "editor", "genre", "langage", "length", "nationality", "title"]]
         movies = []
         movies_items = []
         for (index, row), (index2, row2) in zip(df2.iterrows(), df.iterrows()):
-            if row["actors"] == "no value":
-                row["actors"] = []
-            if row["directors"] == "no value":
-                row["directors"] = []
+            for col in ['genre', 'langage', 'nationality', 'directors', 'actors']:
+                if row[col] == "no value":
+                    row[col] = ["no value"]
                 
             movies.append(row.to_dict())
             movies_items.append({"title": row2["title"], "url": row2['url'], 'picture_url': row2['picture_url'],\
                 'synopsis': row2['synopsis'], 'date': row2['date'], 'predicted_affluence': 0})
-        
+        with open('json_test.json', 'w', encoding='utf-8') as f:
+            json.dump(movies, f, ensure_ascii=False)
         response = requests.post(os.getenv("API_URL"),json=movies)
         predictions = response.json()
         predictions = sorted(predictions["predictions"], key=lambda x: x["predicted_affluence"], reverse=True)
