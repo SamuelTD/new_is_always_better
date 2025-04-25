@@ -79,3 +79,12 @@ def get_movie_datas(force_date: date = None) :
             synopsis[i] = synopsis[i][:197] + "..."
     
     return img, titles, synopsis, url, predictions
+
+def set_real_affluence(movie_id: int, real_affluence: int=0):
+    try:
+        movie = Movie.get(id=movie_id)
+    except:
+        print("wrong id")
+        raise
+    movie.real_affluence = real_affluence
+    movie.save()

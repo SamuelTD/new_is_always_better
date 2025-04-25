@@ -32,7 +32,9 @@
                     <button class="btn" onclick="changeContent('history')">Historique</button>
                 </div>
             </div>
-
+            {% if  is_history %}
+                <script>window.onload = () => changeContent('history');</script>
+            {% endif %}
              <!-- Container -->
              <div class="container mx-auto p-4" id="content">
                 <div class="flex flex-col items-center text-white">
@@ -156,13 +158,22 @@
                                 </h2>
                                 <p class="text-gray-600">Affluence espérée : {{ week.movie_1.predicted_affluence }}</p>
                                 <p class="text-gray-600">
-                                Affluence réelle :
-                                {% if week.movie_1.real_affluence > week.movie_1.predicted_affluence %}
-                                    <span class="text-green-600 font-bold">{{ week.movie_1.real_affluence }}</span>
-                                {% else %}
-                                    <span class="text-red-600 font-bold">{{ week.movie_1.real_affluence }}</span>
-                                {% endif %}
-                            </p>
+                                    Affluence réelle :
+                                    {% if week.movie_1.real_affluence %}
+                                        {% if week.movie_1.real_affluence > week.movie_1.predicted_affluence %}
+                                            <span class="text-green-600 font-bold">{{ week.movie_1.real_affluence }}</span>
+                                        {% else %}
+                                            <span class="text-red-600 font-bold">{{ week.movie_1.real_affluence }}</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="text-yellow-600 font-bold">Non renseignée</span>
+                                    {% endif %}
+                                </p>
+                                <form method="post" action="{% url 'set_affluence' week.movie_1.id %}" class="mt-2">
+                                    {% csrf_token %}
+                                    <input type="number" name="real_affluence" placeholder="Entrer affluence" class="border p-2 rounded w-full mb-2 text-black" value="{{ week.movie_1.real_affluence }}">
+                                    <button type="submit" class="bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700">Enregistrer</button>
+                                </form>
                             </div>
 
                             <!-- Movie 2 -->
@@ -177,14 +188,23 @@
                                     </a>
                                 </h2>
                             <p class="text-gray-600">Affluence espérée : {{ week.movie_2.predicted_affluence }}</p>
-                            <p class="text-gray-600">
-                                Affluence réelle :
-                                {% if week.movie_2.real_affluence > week.movie_2.predicted_affluence %}
-                                    <span class="text-green-600 font-bold">{{ week.movie_2.real_affluence }}</span>
-                                {% else %}
-                                    <span class="text-red-600 font-bold">{{ week.movie_2.real_affluence }}</span>
-                                {% endif %}
-                            </p>
+                                <p class="text-gray-600">
+                                    Affluence réelle :
+                                    {% if week.movie_2.real_affluence %}
+                                        {% if week.movie_1.real_affluence > week.movie_2.predicted_affluence %}
+                                            <span class="text-green-600 font-bold">{{ week.movie_2.real_affluence }}</span>
+                                        {% else %}
+                                            <span class="text-red-600 font-bold">{{ week.movie_2.real_affluence }}</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="text-yellow-600 font-bold">Non renseignée</span>
+                                    {% endif %}
+                                </p>
+                                <form method="post" action="{% url 'set_affluence' week.movie_2.id %}" class="mt-2">
+                                    {% csrf_token %}
+                                    <input type="number" name="real_affluence" placeholder="Entrer affluence" class="border p-2 rounded w-full mb-2 text-black" value="{{ week.movie_2.real_affluence }}">
+                                    <button type="submit" class="bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700">Enregistrer</button>
+                                </form>
                             </div>
 
                             <!-- Ending spacer column -->
