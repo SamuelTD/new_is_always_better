@@ -1,6 +1,6 @@
 import pandas as pd
-from azure.identity import DefaultAzureCredential
-from azure.ai.ml import MLClient
+# from azure.identity import DefaultAzureCredential
+# from azure.ai.ml import MLClient
 import os
 import json
 
