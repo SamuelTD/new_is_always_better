@@ -95,6 +95,7 @@
                                     </a>
                                 </h2>
                                 <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
+                                <p class="text-gray-600">Affluence espérée 2 : {{ prediction.predicted_affluence_2 }}</p>
                         </div>
                         {% if forloop.counter == 2 %}
                             <div></div>
@@ -110,6 +111,7 @@
                                         </a>
                                     </h2>
                                     <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
+                                    <p class="text-gray-600">Affluence espérée 2 : {{ prediction.predicted_affluence_2 }}</p>
                             </div>
                     {% else %}
                         <div class="bg-white rounded-lg shadow-md p-6">
@@ -119,6 +121,7 @@
                                         </a>
                                     </h2>
                                     <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
+                                    <p class="text-gray-600">Affluence espérée 2 : {{ prediction.predicted_affluence_2 }}</p>
                             </div>
                     {% endif %}
                  {% endfor %}  
