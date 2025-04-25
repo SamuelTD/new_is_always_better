@@ -179,3 +179,5 @@ cython_debug/
 
 *.csv
 *.parquet
+
+*staticfiles/

@@ -6,7 +6,13 @@
 import scrapy
 
 
-class JpboxofficeItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class ActorItem(scrapy.Item):
+    
+    rank = scrapy.Field()
+    name = scrapy.Field()
+    amount_of_film_played_in = scrapy.Field()
+    nationality = scrapy.Field()
+    boxoffice_total = scrapy.Field()
+    boxoffice_total_first_role = scrapy.Field()
+    boxoffice_average = scrapy.Field()
+    boxoffice_average_first_role = scrapy.Field()

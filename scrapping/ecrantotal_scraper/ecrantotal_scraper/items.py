@@ -12,4 +12,5 @@ class EcrantotalScraperItem(scrapy.Item):
     title = scrapy.Field()
     date = scrapy.Field()
     genre = scrapy.Field()  
+    url_picture = scrapy.Field()
 

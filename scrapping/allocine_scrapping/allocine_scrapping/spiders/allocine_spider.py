@@ -11,11 +11,13 @@ class AllocineSpider(scrapy.Spider):
     allowed_domains = ["www.allocine.fr"]
     
     #Scraps from 2010 to 2025
-    start_urls = ["https://www.allocine.fr/films/decennie-2000/",
-                   "https://www.allocine.fr/films/decennie-1990/"]
+    start_urls = ["https://www.allocine.fr/films/decennie-2020/",
+                  "https://www.allocine.fr/films/decennie-2010/",
+                  "https://www.allocine.fr/films/decennie-2000/",
+                  "https://www.allocine.fr/films/decennie-1990/"]
     
     base_url = "https://www.allocine.fr"
-    
+
     def parse(self, response):
         
         #Each page of the list is marked by the following in the url.
@@ -29,7 +31,7 @@ class AllocineSpider(scrapy.Spider):
         try:
             max_pg = int(max_pg)
         
-            # for x in range(1, 11):
+            # for x in range(1, 6):
             for x in range(1, max_pg+1):
                 yield response.follow(response.url+page_string+str(x), callback=self.parse_film_page)
         except:
@@ -51,7 +53,7 @@ class AllocineSpider(scrapy.Spider):
         box_office_url = self.get_box_office_url(film.url)
         
         #Instance the film Item
-        f = FilmItem(french_boxoffice = "")
+        f = FilmItem(french_boxoffice = "", picture_url = "")
         
         #Get the critics and viewer critic scores
         scores = self.get_scores(film)
@@ -76,7 +78,7 @@ class AllocineSpider(scrapy.Spider):
         try:
             f["length"] = film.xpath('.//div[@class="meta-body-item meta-body-info"]/text()[normalize-space()]').get().strip()
         except: 
-            f["length"] = "0"
+            f["length"] = "N/A"
             
         f["url"] = film.css("a.meta-title-link::attr(href)").get()
         
@@ -89,7 +91,7 @@ class AllocineSpider(scrapy.Spider):
             
         # f["synopsis"] = film.css("div.content-txt::text").get()
         
-        f["director"] = film.css("div.meta-body-item.meta-body-direction span:nth-of-type(2)::text").get()
+        f["directors"] = film.css("div.meta-body-item.meta-body-direction span:nth-of-type(2)::text").get()
         
         f['vo_title'] = film.css("div.meta-body-item span.dark-grey::text").get()
         
@@ -107,12 +109,15 @@ class AllocineSpider(scrapy.Spider):
                     f['langage'] = "".join(item.css("span.that::text").getall()).strip()
                 case "N° de Visa":
                     f['french_visa'] = "".join(item.css("span.that::text").getall()).strip()
+                case "Année de production":
+                    if f['date'] == "TBR":
+                        f['date'] = "".join(item.css("span.that::text").getall()).strip()
                 case _:
                     pass
         
         #If the film does not have a French box-office, it is not returned as it isn't useful.
         if f['french_boxoffice'] != "":        
-            yield film.follow(box_office_url, callback=self.parse_box_office, meta={"item": f})
+            yield film.follow(box_office_url, callback=self.parse_box_office, meta={"item": f, "movie_url": film.url})
         
         else:
             return None
@@ -137,9 +142,61 @@ class AllocineSpider(scrapy.Spider):
             
         else:
             f['french_first_week_boxoffice'] = ""
+        
+        #If US box office is availlable, scraps it.
+        if len(titles) > 1 and titles[1] == "Box Office US":
+            boxoffice_us = response.css("tbody")[1]
+            f['us_boxoffice'] = boxoffice_us.css("td.responsive-table-column.third-col::text").getall()[-1].strip()
+            boxoffice_us = boxoffice_us.css("td.responsive-table-column.second-col.col-bg::text").getall()
+            if len(boxoffice_us) >= 2:
+                if int(boxoffice_us[0].strip().replace(" ", "")) > int(boxoffice_us[1].strip().replace(" ", "")):
+                    f['us_first_week_boxoffice'] = boxoffice_us[0].strip()
+                else:
+                    f['us_first_week_boxoffice'] = boxoffice_us[1].strip()
+            else:
+                f['us_first_week_boxoffice'] = boxoffice_us[0].strip()
+        else:
+            f['us_boxoffice'] = "N/A"
+            f['us_first_week_boxoffice'] = "N/A"
+            
+        casting_url = self.get_casting_url(response.meta["movie_url"])
+            
+        yield response.follow(casting_url, callback=self.parse_casting_page, meta={"item": f, "movie_url": response.meta["movie_url"]})
+        
+    
+    def parse_casting_page(self, response):
+        
+        f = response.meta["item"]
+        
+        #If no casting page exist, return the current movie as is.
+        if response.url == response.meta["movie_url"]:
+            return f
+        
+        #Else process the page
+        else:
+            actors_cards = response.css("section.section.casting-actor a.meta-title-link::text").getall()
+            actors_list = response.css("section.section.casting-actor a.item.link::text").getall()
+            if len(actors_cards) > 0 or len(actors_list) > 0:
+                f['actors'] = ""
+                for actor in actors_cards:
+                    f['actors'] += actor + '|'
+                for actor in actors_list:
+                    f['actors'] += actor + '|'
+                    
+                f['actors'] = f['actors'][:-1]    
+                
+            directors_cards = response.css("section.section.casting-director a.meta-title-link::text").getall()
+            directors_list = response.css("section.section.casting-director a.item.link::text").getall()
+            if len(directors_cards) > 0 or len(directors_list) > 0:
+                f['directors'] = ""
+                for director in directors_cards:
+                    f['directors'] += director + '|'
+                for director in directors_list:
+                    f['directors'] += director + '|'
+                    
+                f['directors'] = f['directors'][:-1]   
             
         return f
-        
     
     def get_scores(self, response):
         scores = response.css("span.stareval-note::text").getall()
@@ -156,5 +213,9 @@ class AllocineSpider(scrapy.Spider):
     def get_box_office_url(self, url):
         
         return url.replace("_gen_cfilm=", "-").replace(".html", "/box-office/")
+    
+    def get_casting_url(self, url):
+        
+        return url.replace("_gen_cfilm=", "-").replace(".html", "/casting/")
 
       
