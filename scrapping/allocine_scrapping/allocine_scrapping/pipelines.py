@@ -12,6 +12,7 @@ import pyodbc
 import requests
 import os
 from dotenv import load_dotenv
+from twisted.internet import reactor
 
 
 class AllocineScrappingPipeline:
@@ -113,7 +114,7 @@ class AllocineScrappingReleasesPipeline:
             f'SERVER={os.getenv("DB_HOST")};'
             f'DATABASE={os.getenv("DB_NAME")};'
             f'UID={os.getenv("DB_USER")};'
-            f'PWD={os.getenv("DB_PASSWORDr")}'            
+            f'PWD={os.getenv("DB_PASSWORD")}'            
         )
         self.cursor = self.conn.cursor()
         
@@ -154,11 +155,13 @@ class AllocineScrappingReleasesPipeline:
         return item
 
     def close_spider(self, spider):
-        """
-        On the spider closing, create a parquet file from the created .csv
-        """
         
+        reactor.callLater(0, self.process_csv)
+    
+    def process_csv(self):
         df = pd.read_csv(f"./allocine_spider_releases_{str(date.today())}.csv")
+        
+        print(df["title"], df.shape)
         
         df['genre'] = df['genre'].str.split('|')
         df['actors'] = df['actors'].str.split('|')
@@ -182,11 +185,17 @@ class AllocineScrappingReleasesPipeline:
             movies_items.append({"title": row2["title"], "url": row2['url'], 'picture_url': row2['picture_url'],\
                 'synopsis': row2['synopsis'], 'date': row2['date'], 'predicted_affluence': 0})
         
+        # print(movies)
         response = requests.post(os.getenv("API_URL"),json=movies)
         predictions = response.json()
+        # print(predictions)
         predictions = sorted(predictions["predictions"], key=lambda x: x["predicted_affluence"], reverse=True)
         for prediction in predictions:
-            prediction["predicted_affluence"] = int(prediction["predicted_affluence"]/2000)
+            if prediction["predicted_affluence"] < 0:                
+                prediction["predicted_affluence"] = 0              
+               
+            else:
+                prediction["predicted_affluence"] = int(prediction["predicted_affluence"]/2000)
             for movie_item in movies_items:
                 if movie_item['title'] == prediction["title"]:
                     movie_item['predicted_affluence'] = prediction["predicted_affluence"]  
