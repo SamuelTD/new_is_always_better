@@ -177,3 +177,13 @@ cython_debug/
 
 *.csv
 *.parquet
+
+note.txt
+/logs
+/scrapping/logs
+airflow/logs/
+scrapping/airflow/logs/
+*.generated
+*.db
+
+

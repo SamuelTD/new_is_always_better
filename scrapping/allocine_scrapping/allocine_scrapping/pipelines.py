@@ -159,7 +159,11 @@ class AllocineScrappingReleasesPipeline:
         reactor.callLater(0, self.process_csv)
     
     def process_csv(self):
-        df = pd.read_csv(f"./allocine_spider_releases_{str(date.today())}.csv")
+        try:
+
+            df = pd.read_csv(f"./allocine_spider_releases_{str(date.today())}.csv")
+        except:
+            df = pd.read_csv(f"./allocine_scrapping/outputs/resultats.csv")
         
         print(df["title"], df.shape)
         
@@ -185,20 +189,30 @@ class AllocineScrappingReleasesPipeline:
             movies_items.append({"title": row2["title"], "url": row2['url'], 'picture_url': row2['picture_url'],\
                 'synopsis': row2['synopsis'], 'date': row2['date'], 'predicted_affluence': 0})
         
-        # print(movies)
+        #print(movies)
+        print("DEBUG =====================================", os.getenv("API_URL"))
         response = requests.post(os.getenv("API_URL"),json=movies)
         predictions = response.json()
-        # print(predictions)
+        print(predictions)
+
         predictions = sorted(predictions["predictions"], key=lambda x: x["predicted_affluence"], reverse=True)
         for prediction in predictions:
             if prediction["predicted_affluence"] < 0:                
-                prediction["predicted_affluence"] = 0              
-               
+                prediction["predicted_affluence"] = 0      
             else:
                 prediction["predicted_affluence"] = int(prediction["predicted_affluence"]/2000)
+            
+            if prediction["second_predicted_affluence"] < 0:                
+                prediction["second_predicted_affluence"] = 0      
+            else:
+                prediction["second_predicted_affluence"] = int(prediction["second_predicted_affluence"]/2000)
+                
             for movie_item in movies_items:
                 if movie_item['title'] == prediction["title"]:
-                    movie_item['predicted_affluence'] = prediction["predicted_affluence"]  
+                    movie_item['predicted_affluence'] = prediction["predicted_affluence"] 
+                    movie_item['predicted_affluence_2'] = prediction["second_predicted_affluence"]  
+                    movie_item['shap_values'] = prediction['shap_values']
+                    movie_item['shap_values_2'] = prediction['second_shap_values']
                     break
             
         for movie_item in movies_items:
@@ -206,13 +220,14 @@ class AllocineScrappingReleasesPipeline:
         
         self.conn.commit()
         self.conn.close()
+        os.remove(f"./allocine_spider_releases_{str(date.today())}.csv")
     
     def insert_item(self, item):
         
         self.cursor.execute(
             """
-            INSERT INTO app_movie (title, url, picture_url, synopsis, date, real_affluence, predicted_affluence)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO app_movie (title, url, picture_url, synopsis, date, real_affluence, predicted_affluence, predicted_affluence_2, shap_values, shap_values_2)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             item['title'],
             item['url'],
@@ -220,10 +235,12 @@ class AllocineScrappingReleasesPipeline:
             item['synopsis'],
             item["date"],
             0,
-            item['predicted_affluence']
+            item['predicted_affluence'],
+            item['predicted_affluence_2'],
+            item['shap_values'],
+            item['shap_values_2']
         )
-    
-        
+
     def hours_to_minutes(self, h)  -> int:
         """
         Transform string formatted movie length into minutes.
