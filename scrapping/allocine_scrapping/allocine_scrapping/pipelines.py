@@ -213,6 +213,7 @@ class AllocineScrappingReleasesPipeline:
         
         self.conn.commit()
         self.conn.close()
+        os.remove(f"./allocine_spider_releases_{str(date.today())}.csv")
     
     def insert_item(self, item):
         
