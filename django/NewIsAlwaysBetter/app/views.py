@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from app.utils import get_movie_datas, get_history
 from app.models import Movie
 from datetime import datetime
+import json
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -26,11 +27,42 @@ class IndexView(LoginRequiredMixin, TemplateView):
         context["predictions"] = predictions
         context["history"] = history
         context["figures"] = []
+        context["history_json"] = json.dumps(history, default=str)
         for x in range(1, 13):
             context["figures"].append(f"fig{x}.png")
+        if self.request.GET.get("content") == "releases":
+            context["is_releases"] = True
+        if self.request.GET.get("content") == "predictions":
+            context["is_predictions"] = True
+        if self.request.GET.get("content") == "dashboard":
+            context["is_dashboard"] = True
         if self.request.GET.get("content") == "history":
             context["is_history"] = True
         return context
+    
+class AccountingView(LoginRequiredMixin, TemplateView):
+    template_name = "app/accounting.html"
+    login_url = ""
+    
+    def get_context_data(self, **kwargs) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        img, titles, synopsis, url, predictions = get_movie_datas()        
+        history = get_history()
+
+        # Ajout : enrichir chaque semaine avec total_affluence et total_revenue
+        for week in history:
+            movie_1_affluence = week["movie_1"].real_affluence if week["movie_1"] else 0
+            movie_2_affluence = week["movie_2"].real_affluence if week["movie_2"] else 0
+            movie_1_p_affluence = week["movie_1"].predicted_affluence if week["movie_1"] else 0
+            movie_2_p_affluence = week["movie_2"].predicted_affluence if week["movie_2"] else 0
+            week["total_affluence"] = movie_1_affluence + movie_2_affluence
+            week["total_revenue"] = week["total_affluence"] * 10
+            week["predicted_total_revenue"] = movie_1_p_affluence + movie_2_p_affluence * 10
+            week["benefit"] = week["total_revenue"] - 4900
+
+        context["history"] = history
+        return context
+
     
 class WipeTableView(TemplateView):
     

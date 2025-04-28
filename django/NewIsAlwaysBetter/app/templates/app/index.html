@@ -30,10 +30,17 @@
                     <button class="btn" onclick="changeContent('predictions')">Prédictions</button>
                     <button class="btn" onclick="changeContent('dashboard')">Dashboard</button>
                     <button class="btn" onclick="changeContent('history')">Historique</button>
+                    <a href="{% url 'accounting' %}" class="btn">Comptabilité</a>
                 </div>
             </div>
             {% if  is_history %}
                 <script>window.onload = () => changeContent('history');</script>
+            {% elif is_releases %}
+                <script>window.onload = () => changeContent('releases');</script>
+            {% elif is_predictions %}
+                <script>window.onload = () => changeContent('predictions');</script>
+            {% elif is_dashboard %}
+                <script>window.onload = () => changeContent('dashboard');</script>
             {% endif %}
              <!-- Container -->
              <div class="container mx-auto p-4" id="content">
