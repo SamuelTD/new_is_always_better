@@ -8,10 +8,10 @@ from app.models import Movie
 from datetime import datetime
 import json
 import shap
-import pickle
-import base64
+import matplotlib.pyplot as plt
 import io
-import plotly.io as pio
+import base64
+import pickle
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -83,31 +83,44 @@ class PredictionView(LoginRequiredMixin, DetailView):
     model = Movie
     template_name = 'app/prediction.html'
     context_object_name = 'movie'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Suppose que ton objet Movie stocke shap_values en base64
         shap_string = self.object.shap_values
+        shap_string_2 = self.object.shap_values_2
 
-        # Désérialiser shap_values
-        shap_values = self.deserialize_shap(shap_string)
+        # Désérialiser
+        shap_values = self.deserialize_shap(shap_string) 
+        shap_values_2 = self.deserialize_shap(shap_string_2) 
 
-        # activer plotly pour shap
-        shap.initjs()
+        # ---------- Premier graphique ----------
+        plt.clf()  # Clear figure pour être propre
+        shap.plots.waterfall(shap_values[0], show=False)
 
-        # Créer le plot en mode Plotly
-        plot = shap.plots.waterfall(shap_values[0], show=False)
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', bbox_inches='tight')
+        buf.seek(0)
+        image_base64 = base64.b64encode(buf.read()).decode('utf-8')
+        buf.close()
 
-        # Convertir en HTML embeddable
-        plot_html = pio.to_html(plot, full_html=False)
+        # ---------- Deuxième graphique ----------
+        plt.clf()  # Clear encore !
+        shap.plots.waterfall(shap_values_2[0], show=False)
 
-        context['shap_waterfall_html'] = plot_html
+        buf_2 = io.BytesIO()
+        plt.savefig(buf_2, format='png', bbox_inches='tight')
+        buf_2.seek(0)
+        image_base64_2 = base64.b64encode(buf_2.read()).decode('utf-8')
+        buf_2.close()
+
+        # Envoyer au template
+        context['shap_waterfall'] = image_base64
+        context['shap_waterfall_2'] = image_base64_2
 
         return context
-
     @staticmethod
     def deserialize_shap(shap_string):
-        print(shap_string)
         shap_bytes = base64.b64decode(shap_string.encode('utf-8'))
         return pickle.loads(shap_bytes)
     
