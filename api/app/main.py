@@ -23,6 +23,10 @@ async def predict_affluence(films: List[FilmInput]):
         for film in films:
             prediction, shap = predict_film_affluence(film, True)
             prediction2, shap2 = predict_film_affluence(film, False)
+            if shap == None:
+                shap = ""
+            if shap2 == None:
+                shap2 = ""
             results.append({
                 "title": film.title if hasattr(film, "title") else "Unknown",
                 "predicted_affluence": prediction,

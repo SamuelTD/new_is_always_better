@@ -105,6 +105,11 @@
                                 </h2>
                                 <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
                                 <p class="text-gray-600">Affluence espérée 2 : {{ prediction.predicted_affluence_2 }}</p>
+                                {% if prediction.id %}
+                                    <a href="{% url 'predictions' pk=prediction.id %}" class="text-gray-600">Détail prédiction</a>
+                                {% else %}
+                                    <p>No prediction available.</p>
+                                {% endif %}
                         </div>
                         {% if forloop.counter == 2 %}
                             <div></div>
@@ -121,6 +126,11 @@
                                     </h2>
                                     <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
                                     <p class="text-gray-600">Affluence espérée 2 : {{ prediction.predicted_affluence_2 }}</p>
+                                    {% if prediction.id %}
+                                        <a href="{% url 'predictions' pk=prediction.id %}" class="text-gray-600">Détail prédiction</a>
+                                    {% else %}
+                                        <p>No prediction available.</p>
+                                    {% endif %}
                             </div>
                     {% else %}
                         <div class="bg-white rounded-lg shadow-md p-6">
@@ -131,6 +141,11 @@
                                     </h2>
                                     <p class="text-gray-600">Affluence espérée : {{ prediction.predicted_affluence }}</p>
                                     <p class="text-gray-600">Affluence espérée 2 : {{ prediction.predicted_affluence_2 }}</p>
+                                    {% if prediction.id %}
+                                        <a href="{% url 'predictions' pk=prediction.id %}" class="text-gray-600">Détail prédiction</a>
+                                    {% else %}
+                                        <p>No prediction available.</p>
+                                    {% endif %}
                             </div>
                     {% endif %}
                  {% endfor %}  

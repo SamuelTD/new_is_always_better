@@ -23,10 +23,61 @@ def get_history():
 
     # Get top 2 by prediction per week
     top_movies_by_week = []
+    previous_movie_1 = None
 
     for week, group in weekly_groups.items():
         sorted_group = sorted(group, key=lambda m: m.predicted_affluence, reverse=True)
         top_two = sorted_group[:2]
+        if len(top_two) == 0:
+            # Aucun film : cloner le movie_1 précédent
+            if previous_movie_1:
+                movie_1 = Movie.objects.create(
+                    title=previous_movie_1.title,
+                    predicted_affluence=previous_movie_1.predicted_affluence,
+                    url = previous_movie_1.url,
+                    picture_url = previous_movie_1.picture_url,
+                    synopsis = previous_movie_1.synopsis,
+                    predicted_affluence_2 = previous_movie_1.predicted_affluence_2,
+                    real_affluence = previous_movie_1.real_affluence,
+                    date = previous_movie_1.date,
+                    shap_values = previous_movie_1.shap_values,
+                    shap_values_2 = previous_movie_1.shap_values_2
+                )
+                movie_2 = Movie.objects.create(
+                    title=movie_1.title,
+                    predicted_affluence=movie_1.predicted_affluence,
+                    url = movie_1.url,
+                    picture_url = movie_1.picture_url,
+                    synopsis = movie_1.synopsis,
+                    predicted_affluence_2 = movie_1.predicted_affluence_2,
+                    real_affluence = movie_1.real_affluence,
+                    date = movie_1.date,
+                    shap_values = movie_1.shap_values,
+                    shap_values_2 = movie_1.shap_values_2
+                )
+            else:
+                movie_1 = movie_2 = None  # Si on n'a pas de movie_1 précédent, on ne peut pas cloner.
+        elif len(top_two) == 1:
+            # Un seul film : cloner le film de cette semaine
+            movie_1 = top_two[0]
+            movie_2 = Movie.objects.create(
+                    title=movie_1.title,
+                    predicted_affluence=movie_1.predicted_affluence,
+                    url = movie_1.url,
+                    picture_url = movie_1.picture_url,
+                    synopsis = movie_1.synopsis,
+                    predicted_affluence_2 = movie_1.predicted_affluence_2,
+                    real_affluence = movie_1.real_affluence,
+                    date = movie_1.date,
+                    shap_values = movie_1.shap_values,
+                    shap_values_2 = movie_1.shap_values_2
+            )
+            previous_movie_1 = movie_1  # Met à jour previous_movie_1
+        else:
+            # Deux films disponibles : rien à changer, on les prend directement
+            movie_1 = top_two[0]
+            movie_2 = top_two[1]
+            previous_movie_1 = top_two[0]
 
         # Build dictionary
         entry = {
@@ -70,7 +121,7 @@ def get_movie_datas(force_date: date = None) :
         titles.append(movie.title)
         synopsis.append(movie.synopsis)
         url.append(movie.url)
-        predictions.append({"title": movie.title, "predicted_affluence": movie.predicted_affluence, "predicted_affluence_2": movie.predicted_affluence_2, \
+        predictions.append({"title": movie.title, "id": movie.id, "predicted_affluence": movie.predicted_affluence, "predicted_affluence_2": movie.predicted_affluence_2, \
             "shap_values": movie.shap_values, "shap_values_2": movie.shap_values_2, "picture_url": movie.picture_url,\
             "url": movie.url})
     

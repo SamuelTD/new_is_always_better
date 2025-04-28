@@ -1,12 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, ListView, View
+from django.views.generic import TemplateView, ListView, View, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app.utils import get_movie_datas, get_history
 from app.models import Movie
 from datetime import datetime
 import json
+import shap
+import pickle
+import base64
+import io
+import plotly.io as pio
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -60,6 +65,8 @@ class AccountingView(LoginRequiredMixin, TemplateView):
             week["predicted_total_revenue"] = movie_1_p_affluence + movie_2_p_affluence * 10
             week["benefit"] = week["total_revenue"] - 4900
 
+        history = sorted(history, key=lambda week: datetime.strptime(week["date"], "%d/%m/%Y"))
+
         context["history"] = history
         return context
 
@@ -72,6 +79,38 @@ class WipeTableView(TemplateView):
         Movie.objects.all().delete()
         return super().get(request, *args, **kwargs)
 
+class PredictionView(LoginRequiredMixin, DetailView):
+    model = Movie
+    template_name = 'app/prediction.html'
+    context_object_name = 'movie'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Suppose que ton objet Movie stocke shap_values en base64
+        shap_string = self.object.shap_values
+
+        # Désérialiser shap_values
+        shap_values = self.deserialize_shap(shap_string)
+
+        # activer plotly pour shap
+        shap.initjs()
+
+        # Créer le plot en mode Plotly
+        plot = shap.plots.waterfall(shap_values[0], show=False)
+
+        # Convertir en HTML embeddable
+        plot_html = pio.to_html(plot, full_html=False)
+
+        context['shap_waterfall_html'] = plot_html
+
+        return context
+
+    @staticmethod
+    def deserialize_shap(shap_string):
+        print(shap_string)
+        shap_bytes = base64.b64decode(shap_string.encode('utf-8'))
+        return pickle.loads(shap_bytes)
+    
 
 def set_affluence(request, movie_id):
     if request.method == "POST":
