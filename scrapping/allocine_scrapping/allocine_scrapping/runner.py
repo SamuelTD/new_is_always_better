@@ -1,6 +1,5 @@
 import os
 from scrapy.cmdline import execute
-
 # spider = "bricospider_categories"
 spider = "allocine_spider"
 

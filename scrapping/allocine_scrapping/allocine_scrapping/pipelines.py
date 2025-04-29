@@ -12,6 +12,7 @@ import pyodbc
 import requests
 import os
 from dotenv import load_dotenv
+from twisted.internet import reactor
 
 
 class AllocineScrappingPipeline:
@@ -93,7 +94,7 @@ class AllocineScrappingPipeline:
         return datetime.strptime(date_str, '%d %B %Y').date()
 
         
-### region OSEF
+# region RELEASES
 
 class AllocineScrappingReleasesPipeline:
 
@@ -105,15 +106,17 @@ class AllocineScrappingReleasesPipeline:
     }
 
     def open_spider(self, spider):
-        
+        """
+        On the spider opening, connect to the database.
+        """
         load_dotenv()
         
         self.conn = pyodbc.connect(
              'DRIVER={ODBC Driver 18 for SQL Server};'
-            'SERVER=samueltd-sql-server.database.windows.net;'
-            'DATABASE=samuelTD-django-new_is_always_better;'
-            'UID=NIAB_admin;'
-            'PWD=LUVIRASA_2025'            
+            f'SERVER={os.getenv("DB_HOST")};'
+            f'DATABASE={os.getenv("DB_NAME")};'
+            f'UID={os.getenv("DB_USER")};'
+            f'PWD={os.getenv("DB_PASSWORD")}'            
         )
         self.cursor = self.conn.cursor()
         
@@ -155,11 +158,17 @@ class AllocineScrappingReleasesPipeline:
 
     def close_spider(self, spider):
         """
-        On the spider closing, create a parquet file from the created .csv
+        On the spider closing, call the process_csv function.
         """
-        
+        reactor.callLater(0, self.process_csv)
+    
+    def process_csv(self):
+        """
+        Read the csv written by the spider then use the datas to make API requests for prediction then write the movies into the database.
+        """
         df = pd.read_csv(f"./allocine_spider_releases_{str(date.today())}.csv")
         
+        # Format the datas to be API compliant.
         df['genre'] = df['genre'].str.split('|')
         df['actors'] = df['actors'].str.split('|')
         df['actors'] = df['actors'].mask(df['actors'].isna(), ['no value'])
@@ -169,10 +178,15 @@ class AllocineScrappingReleasesPipeline:
         df['directors'] = df['directors'].str.split('|')     
         df['date']= pd.to_datetime(df['date'], errors='coerce')
         df["date"] = df["date"].dt.strftime("%Y-%m-%dT%H:%M:%S")
+        
+        # Make sub-dataframe that contains only the necessary datas for the prediction model.
         df2  = df[["actors", "date", "directors", "editor", "genre", "langage", "length", "nationality", "title"]]
+        
+        # Loop through the movies, making lists. One to send the API, one for the database.
         movies = []
         movies_items = []
         for (index, row), (index2, row2) in zip(df2.iterrows(), df.iterrows()):
+            # Remove NaN values.
             if row["actors"] == "no value":
                 row["actors"] = []
             if row["directors"] == "no value":
@@ -182,28 +196,50 @@ class AllocineScrappingReleasesPipeline:
             movies_items.append({"title": row2["title"], "url": row2['url'], 'picture_url': row2['picture_url'],\
                 'synopsis': row2['synopsis'], 'date': row2['date'], 'predicted_affluence': 0})
         
+        # Send the datas to the API
         response = requests.post(os.getenv("API_URL"),json=movies)
+        
+        # Stock the response
         predictions = response.json()
+       
+        # Sort films by predicted affluence. Remove negative affluence.
         predictions = sorted(predictions["predictions"], key=lambda x: x["predicted_affluence"], reverse=True)
         for prediction in predictions:
-            prediction["predicted_affluence"] = int(prediction["predicted_affluence"]/2000)
+            if prediction["predicted_affluence"] < 0:                
+                prediction["predicted_affluence"] = 0      
+            else:
+                prediction["predicted_affluence"] = int(prediction["predicted_affluence"]/2000)
+            
+            if prediction["second_predicted_affluence"] < 0:                
+                prediction["second_predicted_affluence"] = 0      
+            else:
+                prediction["second_predicted_affluence"] = int(prediction["second_predicted_affluence"]/2000)
+                
             for movie_item in movies_items:
                 if movie_item['title'] == prediction["title"]:
-                    movie_item['predicted_affluence'] = prediction["predicted_affluence"]  
+                    movie_item['predicted_affluence'] = prediction["predicted_affluence"] 
+                    movie_item['predicted_affluence_2'] = prediction["second_predicted_affluence"]  
+                    movie_item['shap_values'] = prediction['shap_values']
+                    movie_item['shap_values_2'] = prediction['second_shap_values']
                     break
-            
+         
+        #Write the movies in the database, close the connections then delete the .csv.   
         for movie_item in movies_items:
             self.insert_item(movie_item)  
         
         self.conn.commit()
         self.conn.close()
+        os.remove(f"./allocine_spider_releases_{str(date.today())}.csv")
     
     def insert_item(self, item):
+        """
+        Write the SQL request for a movie item.
+        """
         
         self.cursor.execute(
             """
-            INSERT INTO app_movie (title, url, picture_url, synopsis, date, real_affluence, predicted_affluence)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO app_movie (title, url, picture_url, synopsis, date, real_affluence, predicted_affluence, predicted_affluence_2, shap_values, shap_values_2)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             item['title'],
             item['url'],
@@ -211,7 +247,10 @@ class AllocineScrappingReleasesPipeline:
             item['synopsis'],
             item["date"],
             0,
-            item['predicted_affluence']
+            item['predicted_affluence'],
+            item['predicted_affluence_2'],
+            item['shap_values'],
+            item['shap_values_2']
         )
     
         

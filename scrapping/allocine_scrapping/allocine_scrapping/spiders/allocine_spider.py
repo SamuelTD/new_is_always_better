@@ -10,7 +10,7 @@ class AllocineSpider(scrapy.Spider):
     name = "allocine_spider"
     allowed_domains = ["www.allocine.fr"]
     
-    #Scraps from 2010 to 2025
+    #Scraps from 1990 to 2025
     start_urls = ["https://www.allocine.fr/films/decennie-2020/",
                   "https://www.allocine.fr/films/decennie-2010/",
                   "https://www.allocine.fr/films/decennie-2000/",
@@ -165,6 +165,9 @@ class AllocineSpider(scrapy.Spider):
         
     
     def parse_casting_page(self, response):
+        """
+        Parse the actors page for the current movie.
+        """
         
         f = response.meta["item"]
         
@@ -198,7 +201,11 @@ class AllocineSpider(scrapy.Spider):
             
         return f
     
-    def get_scores(self, response):
+    def get_scores(self, response):        
+        """
+        Parse the critic scores and viewers scores.
+        """
+        
         scores = response.css("span.stareval-note::text").getall()
         
         #Some movies can have a critic score but no viewer score.
@@ -215,6 +222,9 @@ class AllocineSpider(scrapy.Spider):
         return url.replace("_gen_cfilm=", "-").replace(".html", "/box-office/")
     
     def get_casting_url(self, url):
+        """
+        Get the casting url based on the current movie url.
+        """
         
         return url.replace("_gen_cfilm=", "-").replace(".html", "/casting/")
 

@@ -1,7 +1,8 @@
 import pandas as pd
-from azure.identity import DefaultAzureCredential
-from azure.ai.ml import MLClient
+# from azure.identity import DefaultAzureCredential
+# from azure.ai.ml import MLClient
 import os
+import json
 
 # # Configuration Azure
 # SUBSCRIPTION_ID = os.getenv("AZURE_SUBSCRIPTION_ID", "72eb7803-e874-44cb-b6d9-33f2fa3eb88c")
@@ -45,7 +46,6 @@ def load_actors_data():
     
     # data_asset = ml_client.data.get(file_name, version=version)
     df_actors = pd.read_parquet("app/utils/actors_docker.parquet")
-    print(df_actors)
     # Prétraitement des noms d'acteurs
     df_actors['name'] = df_actors["name"].apply(
         lambda x: x.replace(" ", "").replace("-", "").replace("_", "").strip().lower()
@@ -72,36 +72,20 @@ def load_national_affluence_data():
     return _national_affluence_data
 
 def get_max_average_actor(actors):
-    """
-    Récupère la valeur max_average_actor basée sur la liste des acteurs.
-    
-    Args:
-        actors: Liste des noms d'acteurs
-        
-    Returns:
-        Valeur max_average_actor
-    """
     df_actors = load_actors_data()
-    
+
     # Prétraitement des noms d'acteurs de la requête
     processed_actors = [
         actor.replace(" ", "").replace("-", "").replace("_", "").strip().lower()
         for actor in actors
     ]
-    
-    # Récupération des scores pour les acteurs présents dans la base
-    actor_scores = []
+
+    scores = []
     for actor in processed_actors:
-        if actor in df_actors.index:
-            # Supposons que la colonne "boxoffice_average" contient la valeur recherchée
-            actor_scores.append(df_actors.loc[actor, "boxoffice_average"])
-    
-    # Si aucun acteur n'est trouvé, retourner une valeur par défaut
-    if not actor_scores:
-        return 0
-    
-    # Retourner le score maximum
-    return max(actor_scores)
+        if actor in df_actors.index :
+            scores.append(df_actors.loc[actor, "boxoffice_average"])
+    scores.sort(reverse=True)
+    return scores
 
 def get_national_affluence(date):
     """
@@ -121,3 +105,22 @@ def get_national_affluence(date):
     
     # Retourner la valeur d'affluence pour la date du mois correspondant
     return df_affluence.loc[date, 'box_office'] if date in df_affluence.index else None
+
+def get_target_encoding(genre, langage, nationality, directors, actors):
+    with open('app/utils/target_encoding_list.json', 'r', encoding='utf-8') as f:
+        target_encoding_dict = json.load(f)
+    str_list = ["genre", "langage", "nationality", 'directors', "actors"]
+    result = {}
+    for i, col_list in enumerate([genre, langage, nationality, directors, actors]):
+        col_key = str_list[i]
+        scores = []
+        for item in col_list:
+            if item in target_encoding_dict.get(col_key, {}):
+                scores.append(target_encoding_dict[col_key][item])
+        scores = sorted(scores, reverse=True)
+        result[f'{col_key}_first_target_transform'] = scores[0] if len(scores) > 0 else 0
+        result[f'{col_key}_second_target_transform'] = scores[1] if len(scores) > 1 else 0
+        result[f'{col_key}_third_target_transform'] = scores[2] if len(scores) > 2 else 0
+
+    return result
+
