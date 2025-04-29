@@ -131,6 +131,9 @@ celerybeat.pid
 .env
 .venv
 .venv_api
+.venv_scrapping
+.venv_django
+pycaret_env
 env/
 venv/
 ENV/

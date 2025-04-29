@@ -3,6 +3,8 @@ from allocine_scrapping.items import FilmItem
 import datetime
 import re
 
+temp_days_ahead = 7*0
+
 class AllocineSpider(scrapy.Spider):
     
     """
@@ -27,7 +29,7 @@ class AllocineSpider(scrapy.Spider):
         # If today is Wednesday, we want the next Wednesday (7 days ahead)
         if days_ahead == 0:
             days_ahead = 7
-        next_wed = today + datetime.timedelta(days=days_ahead)
+        next_wed = today + datetime.timedelta(days=days_ahead-temp_days_ahead)
         return next_wed
     
     def convert_fr_date(self, date_str) -> datetime:
@@ -99,8 +101,12 @@ class AllocineSpider(scrapy.Spider):
         try:
             f["date"] = film.css("div.meta-body-item.meta-body-info span.date::text").get().strip()
             # check if redif
-            if self.convert_fr_date(f["date"]) < datetime.date.today():
-                return
+            if temp_days_ahead == 0:
+                if self.convert_fr_date(f["date"]) < datetime.date.today():
+                    return
+            else:
+                if self.convert_fr_date(f["date"]) < datetime.date.today() - datetime.timedelta(days=temp_days_ahead):
+                    return
         except:
             f["date"] = "TBR"
             

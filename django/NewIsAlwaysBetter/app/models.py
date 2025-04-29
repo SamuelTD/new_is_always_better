@@ -15,4 +15,9 @@ class Movie(models.Model):
     shap_values = models.TextField(verbose_name="Shap values", default="")
     shap_values_2 = models.TextField(verbose_name="Shap values 2", default="")
     
+    def calcul_ticket_sale(self, price=10):
+        if self.real_affluence:
+            return 10*self.real_affluence
+        else:
+            return None
     

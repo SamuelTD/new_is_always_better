@@ -18,6 +18,9 @@ class FilmPrediction(BaseModel):
     """Résultat de prédiction pour un film"""
     title: str
     predicted_affluence: float
+    shap_values: str
+    second_predicted_affluence: float
+    second_shap_values: str
 
 class FilmPredictionResponse(BaseModel):
     """Réponse contenant les prédictions pour tous les films"""
