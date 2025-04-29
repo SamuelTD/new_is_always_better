@@ -1,9 +1,6 @@
 from collections import defaultdict
 from datetime import timedelta, date
-import pandas as pd
-import requests
 from app.models import Movie
-import os
 
 def get_week_start(date):
     # Align each date to its release Wednesday
@@ -82,18 +79,18 @@ def get_history():
         # Build dictionary
         entry = {
             "date": week.strftime("%d/%m/%Y"),
-            "movie_1": top_two[0] if len(top_two) > 0 else None,
-            "movie_2": top_two[1] if len(top_two) > 1 else None,
+            "movie_1": top_two[0] if len(top_two) > 0 else movie_1,
+            "movie_2": top_two[1] if len(top_two) > 1 else movie_2,
         }
         top_movies_by_week.append(entry)
     
     return top_movies_by_week[::-1]
 
 def get_next_wednesday():
+    
     today = date.today()
-    # In Python's weekday convention, Monday is 0 and Sunday is 6.
-    # Wednesday is represented by 2.
     wednesday = 2
+    
     # Calculate how many days until the next Wednesday.
     days_ahead = (wednesday - today.weekday() + 7) % 7
     # If today is Wednesday, we want the next Wednesday (7 days ahead)
@@ -103,6 +100,10 @@ def get_next_wednesday():
     return next_wed
 
 def get_movie_datas(force_date: date = None) :
+    
+    """
+    Return all movies of given week. By default will return the upcoming week's movies.
+    """
     
     if not force_date:
         date_to_check = get_next_wednesday()
@@ -132,6 +133,10 @@ def get_movie_datas(force_date: date = None) :
     return img, titles, synopsis, url, predictions
 
 def set_real_affluence(movie_id: int, real_affluence: int=0):
+    """
+    Set the real_affluence field of given movie.
+    """
+    
     try:
         movie = Movie.get(id=movie_id)
     except:

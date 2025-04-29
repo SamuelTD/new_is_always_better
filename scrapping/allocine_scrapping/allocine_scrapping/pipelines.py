@@ -106,7 +106,9 @@ class AllocineScrappingReleasesPipeline:
     }
 
     def open_spider(self, spider):
-        
+        """
+        On the spider opening, connect to the database.
+        """
         load_dotenv()
         
         self.conn = pyodbc.connect(
@@ -155,14 +157,18 @@ class AllocineScrappingReleasesPipeline:
         return item
 
     def close_spider(self, spider):
-        
+        """
+        On the spider closing, call the process_csv function.
+        """
         reactor.callLater(0, self.process_csv)
     
     def process_csv(self):
+        """
+        Read the csv written by the spider then use the datas to make API requests for prediction then write the movies into the database.
+        """
         df = pd.read_csv(f"./allocine_spider_releases_{str(date.today())}.csv")
         
-        print(df["title"], df.shape)
-        
+        # Format the datas to be API compliant.
         df['genre'] = df['genre'].str.split('|')
         df['actors'] = df['actors'].str.split('|')
         df['actors'] = df['actors'].mask(df['actors'].isna(), ['no value'])
@@ -172,10 +178,15 @@ class AllocineScrappingReleasesPipeline:
         df['directors'] = df['directors'].str.split('|')     
         df['date']= pd.to_datetime(df['date'], errors='coerce')
         df["date"] = df["date"].dt.strftime("%Y-%m-%dT%H:%M:%S")
+        
+        # Make sub-dataframe that contains only the necessary datas for the prediction model.
         df2  = df[["actors", "date", "directors", "editor", "genre", "langage", "length", "nationality", "title"]]
+        
+        # Loop through the movies, making lists. One to send the API, one for the database.
         movies = []
         movies_items = []
         for (index, row), (index2, row2) in zip(df2.iterrows(), df.iterrows()):
+            # Remove NaN values.
             if row["actors"] == "no value":
                 row["actors"] = []
             if row["directors"] == "no value":
@@ -185,9 +196,13 @@ class AllocineScrappingReleasesPipeline:
             movies_items.append({"title": row2["title"], "url": row2['url'], 'picture_url': row2['picture_url'],\
                 'synopsis': row2['synopsis'], 'date': row2['date'], 'predicted_affluence': 0})
         
+        # Send the datas to the API
         response = requests.post(os.getenv("API_URL"),json=movies)
+        
+        # Stock the response
         predictions = response.json()
        
+        # Sort films by predicted affluence. Remove negative affluence.
         predictions = sorted(predictions["predictions"], key=lambda x: x["predicted_affluence"], reverse=True)
         for prediction in predictions:
             if prediction["predicted_affluence"] < 0:                
@@ -207,7 +222,8 @@ class AllocineScrappingReleasesPipeline:
                     movie_item['shap_values'] = prediction['shap_values']
                     movie_item['shap_values_2'] = prediction['second_shap_values']
                     break
-            
+         
+        #Write the movies in the database, close the connections then delete the .csv.   
         for movie_item in movies_items:
             self.insert_item(movie_item)  
         
@@ -216,6 +232,9 @@ class AllocineScrappingReleasesPipeline:
         os.remove(f"./allocine_spider_releases_{str(date.today())}.csv")
     
     def insert_item(self, item):
+        """
+        Write the SQL request for a movie item.
+        """
         
         self.cursor.execute(
             """

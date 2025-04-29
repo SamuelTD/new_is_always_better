@@ -157,7 +157,7 @@ class AllocineSpider(scrapy.Spider):
             
     def parse_casting_page(self, response):
         """
-        Parse the acting page for the current movie.
+        Parse the actors page for the current movie.
         """
         
         f = response.meta["item"]
@@ -208,6 +208,9 @@ class AllocineSpider(scrapy.Spider):
         return []
     
     def get_casting_url(self, url):
+        """
+        Get the casting url based on the current movie url.
+        """
         
         return url.replace("_gen_cfilm=", "-").replace(".html", "/casting/")
 

@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, ListView, View, DetailView
+from django.views.generic import TemplateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app.utils import get_movie_datas, get_history
 from app.models import Movie
@@ -12,11 +12,6 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import pickle
-
-# Create your views here.
-class HomeView(TemplateView):
-    
-    template_name = "app/home.html"
     
 class IndexView(LoginRequiredMixin, TemplateView):
     
@@ -71,13 +66,13 @@ class AccountingView(LoginRequiredMixin, TemplateView):
         return context
 
     
-class WipeTableView(TemplateView):
+# class WipeTableView(TemplateView):
     
-    template_name = "app/delete.html"
+#     template_name = "app/delete.html"
     
-    def get(self, request, *args, **kwargs):
-        Movie.objects.all().delete()
-        return super().get(request, *args, **kwargs)
+#     def get(self, request, *args, **kwargs):
+#         Movie.objects.all().delete()
+#         return super().get(request, *args, **kwargs)
 
 class PredictionView(LoginRequiredMixin, DetailView):
     model = Movie
@@ -119,6 +114,7 @@ class PredictionView(LoginRequiredMixin, DetailView):
         context['shap_waterfall_2'] = image_base64_2
 
         return context
+    
     @staticmethod
     def deserialize_shap(shap_string):
         shap_bytes = base64.b64decode(shap_string.encode('utf-8'))
