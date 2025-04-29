@@ -1,13 +1,203 @@
-{% extends "base.html" %}
+{% load static %}
+{% load static tailwind_tags %}
 
-{% block content %}
-<div class="bg-white h-screen flex items-center justify-center">
-    <div class="ml-5 mr-5 mt-5 mb-5 bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h1 class="text-4xl font-bold text-gray-800 mb-8">404 - Page Not Found</h1>
-        <p class="text-gray-600 mb-6">The page you are looking for might have been removed, had its name changed or is
-            temporarily unavailable.</p>
-        <a href={% url "home"%} class="inline-block py-3 px-6 btn_blue">Go
-            back to homepage</a>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+   
+    {% tailwind_css %}
+    <title>404 - Page non trouvée</title>
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; overflow-x: hidden;">
+
+<div class="error-page" style="
+    height: 100vh;
+    width: 100%;
+    background-image: url('{% static 'images/night_stars.jpg' %}');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+">
+    <div style="
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 15px;
+        max-width: 800px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    ">
+        <h2 style="font-size: 2rem; margin-bottom: 10px; font-weight: 300;">Vous vous êtes perdu !</h2>
+        <p style="font-size: 1.8rem; font-weight: 300;">Ici c'est le Box Office du multivers</p>
     </div>
-</div>  
-{% endblock content %}
+
+    <div class="carousel-container" style="
+        width: 100%;
+        max-width: 1200px;
+        overflow: hidden;
+        position: relative;
+    ">
+        <div class="carousel" style="
+            display: flex;
+            transition: transform 0.5s ease;
+        ">
+            {% for i in range %}
+            <div class="carousel-item" style="
+                flex: 0 0 320px;
+                height: 450px;
+                margin: 0 15px;
+                background-image: url('{% static 'images/aff'|add:i|add:'.png' %}');
+                background-size: cover;
+                background-position: center;
+                border-radius: 10px;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+                transition: transform 0.3s ease;
+            "></div>
+            {% endfor %}
+        </div>
+        
+        <button id="prevBtn" style="
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+        ">&#10094;</button>
+        
+        <button id="nextBtn" style="
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+        ">&#10095;</button>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <a href="{% url 'index' %}" style="
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: rgba(0, 123, 255, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        ">Retour à l'accueil</a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.carousel');
+    const items = document.querySelectorAll('.carousel-item');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    // Nombre d'éléments visibles à la fois (ajustez selon la taille de l'écran)
+    const visibleItems = Math.min(3, Math.floor(carousel.clientWidth / 350));
+    
+    // Largeur totale du carrousel
+    const itemWidth = 350; // 320px + 30px de marge
+    let position = 0;
+    const totalItems = items.length;
+    
+    // Dupliquer les éléments pour une boucle infinie
+    for (let i = 0; i < visibleItems; i++) {
+        const clone = items[i].cloneNode(true);
+        carousel.appendChild(clone);
+    }
+    
+    // Fonction pour déplacer le carrousel
+    function moveCarousel(direction) {
+        if (direction === 'next') {
+            position--;
+            if (position < -totalItems) {
+                // Reset en douceur
+                carousel.style.transition = 'none';
+                position = 0;
+                carousel.style.transform = `translateX(${position * itemWidth}px)`;
+                setTimeout(() => {
+                    carousel.style.transition = 'transform 0.5s ease';
+                }, 10);
+            } else {
+                carousel.style.transform = `translateX(${position * itemWidth}px)`;
+            }
+        } else {
+            position++;
+            if (position > 0) {
+                // Reset en douceur
+                carousel.style.transition = 'none';
+                position = -totalItems;
+                carousel.style.transform = `translateX(${position * itemWidth}px)`;
+                setTimeout(() => {
+                    carousel.style.transition = 'transform 0.5s ease';
+                }, 10);
+            } else {
+                carousel.style.transform = `translateX(${position * itemWidth}px)`;
+            }
+        }
+    }
+    
+    // Événements boutons
+    nextBtn.addEventListener('click', () => moveCarousel('next'));
+    prevBtn.addEventListener('click', () => moveCarousel('prev'));
+    
+    // Animation automatique
+    let autoplay = setInterval(() => moveCarousel('next'), 3000);
+    
+    // Arrêter l'animation au survol
+                carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoplay);
+        // Effet de zoom sur l'élément survolé
+        carousel.querySelectorAll('.carousel-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'scale(1.05)';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'scale(1)';
+            });
+        });
+    });
+    carousel.addEventListener('mouseleave', () => {
+        autoplay = setInterval(() => moveCarousel('next'), 3000);
+    });
+    
+    // Responsive
+    window.addEventListener('resize', () => {
+        const newVisibleItems = Math.min(3, Math.floor(carousel.clientWidth / 350));
+        // Réinitialiser la position si nécessaire
+        carousel.style.transform = `translateX(${position * itemWidth}px)`;
+    });
+});
+</script>
+</body>
+</html>

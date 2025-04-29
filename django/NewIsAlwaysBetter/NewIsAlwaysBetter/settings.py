@@ -24,9 +24,9 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Where collected static files will be stored
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",  # Additional static files directory (optional)
-# ]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # Additional static files directory (optional)
+]
 # Utilisation du stockage WhiteNoise pour la production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -39,6 +39,28 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'django_error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
 
 ALLOWED_HOSTS = ["*"]
 

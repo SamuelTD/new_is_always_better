@@ -1,7 +1,7 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, ListView, View, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app.utils import get_movie_datas, get_history
 from app.models import Movie
@@ -12,6 +12,11 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import pickle
+
+# Create your views here.
+class HomeView(TemplateView):
+    
+    template_name = "app/home.html"
     
 class IndexView(LoginRequiredMixin, TemplateView):
     
@@ -66,13 +71,13 @@ class AccountingView(LoginRequiredMixin, TemplateView):
         return context
 
     
-# class WipeTableView(TemplateView):
+class WipeTableView(TemplateView):
     
-#     template_name = "app/delete.html"
+    template_name = "app/delete.html"
     
-#     def get(self, request, *args, **kwargs):
-#         Movie.objects.all().delete()
-#         return super().get(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        Movie.objects.all().delete()
+        return super().get(request, *args, **kwargs)
 
 class PredictionView(LoginRequiredMixin, DetailView):
     model = Movie
@@ -114,7 +119,6 @@ class PredictionView(LoginRequiredMixin, DetailView):
         context['shap_waterfall_2'] = image_base64_2
 
         return context
-    
     @staticmethod
     def deserialize_shap(shap_string):
         shap_bytes = base64.b64decode(shap_string.encode('utf-8'))
@@ -127,3 +131,8 @@ def set_affluence(request, movie_id):
         movie.real_affluence = int(request.POST.get("real_affluence", 0))
         movie.save()
     return HttpResponseRedirect(f"{reverse('index')}?content=history")
+
+def custom_404_view(request, exception):
+    # Créer une liste de numéros pour les images de 1 à 20
+    context = {'range': [str(i) for i in range(1, 22)]}
+    return render(request, '404.html', context, status=404)

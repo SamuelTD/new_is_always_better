@@ -16,9 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404
+from app.views import custom_404_view
+
+# Définition du handler404
+handler404 = 'app.views.custom_404_view'
+
+# Pour accéder à la page 404 en mode DEBUG=True
+def custom_page_not_found(request):
+    return custom_404_view(request, None)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("404/", custom_page_not_found),  # Pour tester en mode DEBUG
     path('', include('app.urls')),
     # path("__reload__/", include("django_browser_reload.urls"))
 ]
