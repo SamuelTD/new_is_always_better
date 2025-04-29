@@ -6,7 +6,7 @@ import re
 class AllocineSpider(scrapy.Spider):
     
     """
-    This is a scrapy spider designed to scrap movies from the french website Allociné.
+    This is a scrapy spider designed to scrap new movies releases from the french website Allociné once a week.
     """
 
     mois_fr_to_en = {
@@ -17,9 +17,10 @@ class AllocineSpider(scrapy.Spider):
         }
     
     def get_next_wednesday():
+        """
+        This function calculate the date of the next wednesday and returns it.
+        """
         today = datetime.date.today()
-        # In Python's weekday convention, Monday is 0 and Sunday is 6.
-        # Wednesday is represented by 2.
         wednesday = 2
         # Calculate how many days until the next Wednesday.
         days_ahead = (wednesday - today.weekday() + 7) % 7
@@ -39,10 +40,13 @@ class AllocineSpider(scrapy.Spider):
         
         return datetime.datetime.strptime(date_str, '%d %B %Y').date()
     
+    
+    
+    
     name = "allocine_spider_releases"
     allowed_domains = ["www.allocine.fr"]
     
-    #Scraps from 2010 to 2025
+    #Scraps the weekly releases page
     start_urls = [f"https://www.allocine.fr/film/agenda/sem-{get_next_wednesday()}/"]
     
     base_url = "https://www.allocine.fr"    
@@ -51,16 +55,11 @@ class AllocineSpider(scrapy.Spider):
     
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
-        """_summary_ Permet d'assigner les pipelines à cette spider
-
-        Args:
-            crawler (_type_): _description_
-
-        Returns:
-            _type_: _description_ la spider BricospiderSpider qui permet de récupérer les catégories
         """
+        Assigns custom pipelines to this particular spider.
+        """
+        
         spider = super(AllocineSpider, cls).from_crawler(crawler, *args, **kwargs)
-        # Ajouter dynamiquement une pipeline spécifique à cette spider
         crawler.settings.set('ITEM_PIPELINES', {"allocine_scrapping.pipelines.AllocineScrappingReleasesPipeline": 300})
         return spider
     
@@ -104,14 +103,6 @@ class AllocineSpider(scrapy.Spider):
                 return
         except:
             f["date"] = "TBR"
-        
-        # check if there less than 5 sceances
-        # _nb_sceance = film.css("div.buttons-holder span.button.button-sm.button-inverse-full span.txt::text").get().strip()
-        # match = re.search(r"\((\d+)\)", _nb_sceance)
-        # if match:
-        #     nb = int(match.group(1))
-        #     if nb < 5:
-        #         return
             
         try:
             f["length"] = film.xpath('.//div[@class="meta-body-item meta-body-info"]/text()[normalize-space()]').get().strip()
@@ -154,9 +145,14 @@ class AllocineSpider(scrapy.Spider):
                     pass
         
         casting_url = self.get_casting_url(film.url)
+        
         yield film.follow(casting_url, callback=self.parse_casting_page, meta={"item": f, "movie_url": film.url}) 
+     
             
     def parse_casting_page(self, response):
+        """
+        Parse the acting page for the current movie.
+        """
         
         f = response.meta["item"]
         
@@ -191,6 +187,9 @@ class AllocineSpider(scrapy.Spider):
         return f
     
     def get_scores(self, response):
+        """
+        Parse the critic scores and viewers scores.
+        """
         scores = response.css("span.stareval-note::text").getall()
         
         #Some movies can have a critic score but no viewer score.
