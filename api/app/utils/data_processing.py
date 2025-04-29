@@ -3,6 +3,9 @@ from app.schemas import FilmInput
 from app.utils.azure_ml import get_national_affluence, get_max_average_actor, get_target_encoding
 
 def num_list_col(x):
+    """
+    Pour mettre 0 au nombre lorsque la valeur est 'no value'
+    """
     n = len(x)
     if n==1:
         if x[0]=="no value":

@@ -9,7 +9,7 @@ import shap
 import pickle
 import base64
 
-# Charger le modèle
+# Charger les modèles
 MODEL_PATH = os.getenv("MODEL_PATH", "model/best_model.pkl")
 MODEL2_PATH = os.getenv("MODEL2_PATH", "model/best_model_tuned.pkl")
 
@@ -49,7 +49,7 @@ def predict_film_affluence(film_input: FilmInput, first: bool) -> float:
     
     # Extraction du modèle XGBoost final
     if first:
-        # Vérifiez la structure réelle de votre pipeline
+        # Vérifiez la structure réelle du modèle
         if hasattr(model.named_steps['xgboost'], 'regressor_'):
             xgb_model = model.named_steps['xgboost'].regressor_
         else:
@@ -60,12 +60,11 @@ def predict_film_affluence(film_input: FilmInput, first: bool) -> float:
     # Créer un explainer TreeExplainer spécifiquement pour XGBoost
     explainer = shap.TreeExplainer(xgb_model)
     
-    # Pour les modèles XGBoost, utilisez directement X_transformed_df
+    # utilisez directement X_transformed_df
     shap_values = explainer(X_transformed_df)
 
     # Sérialisation en string
     shap_values_bytes = pickle.dumps(shap_values)
     shap_values_base64 = base64.b64encode(shap_values_bytes).decode('utf-8')
-
     
     return prediction, shap_values_base64
