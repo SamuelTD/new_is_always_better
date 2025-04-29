@@ -134,5 +134,5 @@ def set_affluence(request, movie_id):
 
 def custom_404_view(request, exception):
     # Créer une liste de numéros pour les images de 1 à 20
-    context = {'range': [str(i) for i in range(1, 22)]}
+    context = {'range': [str(i) for i in range(1, 27)]}
     return render(request, '404.html', context, status=404)
