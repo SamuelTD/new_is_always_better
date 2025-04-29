@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from typing import List
 import uvicorn
-
 from app.schemas import FilmInput, FilmPredictionResponse
 from app.predict import predict_film_affluence
 
