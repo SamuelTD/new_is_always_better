@@ -291,20 +291,19 @@ Azure Function
 
 - **Samuel Thorez**
   <a href="https://github.com/SamuelTD" target="_blank">
-      <img loading="lazy" src="images/github-mark.png" width="30" height="30" alt="GitHub Logo">
+      <img loading="lazy" src="github-mark.png" width="30" height="30" alt="GitHub Logo">
   </a>
 - **Victor Poutot**
   <a href="https://github.com/istaion" target="_blank">
-      <img loading="lazy" src="images/github-mark.png" width="30" height="30" alt="GitHub Logo">
+      <img loading="lazy" src="github-mark.png" width="30" height="30" alt="GitHub Logo">
   </a>
 - **Raouf Addeche**
-<a href="https://github.com/RaoufAddeche" target="_blank">
-    <img loading="lazy" src="images/github-mark.png" width="30" height="30" alt="GitHub Logo">
+  <a href="https://github.com/RaoufAddeche" target="_blank">
+      <img loading="lazy" src="github-mark.png" width="30" height="30" alt="GitHub Logo">
   </a>
-  
 - **Ludivine Raby**
   <a href="https://github.com/ludivineRB" target="_blank">
-      <img loading="lazy" src="images/github-mark.png" width="30" height="30" alt="GitHub Logo">
+      <img loading="lazy" src="github-mark.png" width="30" height="30" alt="GitHub Logo">
   </a>
 
 ---
