@@ -189,8 +189,8 @@ class AllocineScrappingReleasesPipeline:
             movies_items.append({"title": row2["title"], "url": row2['url'], 'picture_url': row2['picture_url'],\
                 'synopsis': row2['synopsis'], 'date': row2['date'], 'predicted_affluence': 0})
         
-        #print(movies)
-        print("DEBUG =====================================", os.getenv("API_URL"))
+        
+        #print("DEBUG =====================================", os.getenv("API_URL"))
         response = requests.post(os.getenv("API_URL"),json=movies)
         predictions = response.json()
         print(predictions)
