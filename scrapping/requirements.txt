@@ -1,0 +1,8 @@
+scrapy
+ipython
+pyarrow
+pandas
+pyodbc
+dotenv
+apache-airflow
+Flask-AppBuilder

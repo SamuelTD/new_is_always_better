@@ -130,6 +130,10 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv_api
+.venv_scrapping
+.venv_django
+pycaret_env
 env/
 venv/
 ENV/
@@ -172,3 +176,18 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+*.csv
+*.parquet
+
+*staticfiles/
+note.txt
+/logs
+/scrapping/logs
+airflow/logs/
+scrapping/airflow/logs/
+*.generated
+*.db
+
+
