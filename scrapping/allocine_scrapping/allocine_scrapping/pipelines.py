@@ -252,8 +252,7 @@ class AllocineScrappingReleasesPipeline:
             item['shap_values'],
             item['shap_values_2']
         )
-    
-        
+
     def hours_to_minutes(self, h)  -> int:
         """
         Transform string formatted movie length into minutes.
