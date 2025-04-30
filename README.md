@@ -220,44 +220,7 @@ Moreover, this setup demands that at least one container remains running continu
 
 Azure Function
 
-
-
-## How to Run
-
-### API
-- Python 3.10+
-- Docker (optionnel, mais recommandé)
-
-**Local installation**
-
-1. Clone the repository :
-   ```bash
-   git clone https://github.com/votre-utilisateur/api-prediction-film.git
-   cd api-prediction-film
-   ```
-
-2. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Run the API:
-   ```bash
-   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-   ```
-
-**Docker deployment**
-
-1. Construire l'image Docker :
-   ```bash
-   docker build -t api-prediction-film .
-   ```
-
-2. Exécuter le conteneur :
-   ```bash
-   docker run -p 8000:8000 api-prediction-film
-   ```
-
+A Azure Function App was developped to run the dockerized weekly scraping task once a week with a CRON job. Such a setup will minimize costs while guaranteeing high performances.
 
 --- --
 
@@ -289,6 +252,10 @@ Azure Function
 
 ## Authors
 
+- **Ludivine Raby**
+  <a href="https://github.com/ludivineRB" target="_blank">
+      <img loading="lazy" src="github-mark.png" width="30" height="30" alt="GitHub Logo">
+  </a>
 - **Samuel Thorez**
   <a href="https://github.com/SamuelTD" target="_blank">
       <img loading="lazy" src="github-mark.png" width="30" height="30" alt="GitHub Logo">
@@ -299,10 +266,6 @@ Azure Function
   </a>
 - **Raouf Addeche**
   <a href="https://github.com/RaoufAddeche" target="_blank">
-      <img loading="lazy" src="github-mark.png" width="30" height="30" alt="GitHub Logo">
-  </a>
-- **Ludivine Raby**
-  <a href="https://github.com/ludivineRB" target="_blank">
       <img loading="lazy" src="github-mark.png" width="30" height="30" alt="GitHub Logo">
   </a>
 
