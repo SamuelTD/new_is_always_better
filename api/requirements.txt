@@ -7,3 +7,5 @@ scikit-learn==1.6.1
 xgboost==3.0.0
 cloudpickle==3.1.1
 shap==0.47.2
+pytest==8.3.5
+httpx==0.28.1

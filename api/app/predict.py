@@ -67,4 +67,4 @@ def predict_film_affluence(film_input: FilmInput, first: bool) -> float:
     shap_values_bytes = pickle.dumps(shap_values)
     shap_values_base64 = base64.b64encode(shap_values_bytes).decode('utf-8')
     
-    return prediction, shap_values_base64
+    return float(prediction), shap_values_base64
